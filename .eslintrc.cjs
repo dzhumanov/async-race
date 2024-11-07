@@ -36,4 +36,5 @@ module.exports = {
     ],
     'max-lines-per-function': ['error', { max: 40 }],
   },
+  endOfLine: "lf",
 };
