@@ -1,4 +1,4 @@
-import GarageItemUI from '../UI/GarageItemUI.tsx';
+import GarageItemUI from './UI/GarageItemUI.tsx';
 
 interface Props {
   carColor: string;

@@ -24,6 +24,7 @@ module.exports = {
   ignorePatterns: ['vite.config.ts'],
   rules: {
     'react/react-in-jsx-scope': 0,
+    'no-console': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -43,5 +44,14 @@ module.exports = {
     ],
     'max-lines-per-function': ['error', { max: 40 }],
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: false,
+        optionalDependencies: false,
+        peerDependencies: false,
+        packageDir: './',
+      },
+    ],
   },
 };

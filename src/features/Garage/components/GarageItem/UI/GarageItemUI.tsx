@@ -1,5 +1,5 @@
 import { Button, Grid2 as Grid, Typography } from '@mui/material';
-import Car from '../../../../UI/Icons/Car/Car.tsx';
+import Car from '../../../../../UI/Icons/Car/Car.tsx';
 import classes from './GarageItem.module.css';
 
 interface Props {

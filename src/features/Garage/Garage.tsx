@@ -1,9 +1,11 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { Box } from '@mui/material';
 import GarageItem from './components/GarageItem/GarageItem.tsx';
 import { selectCars } from '../../app/garageSlice.ts';
 import { useAppDispatch } from '../../app/hooks.ts';
 import { fetchCars } from '../../app/garageThunks.ts';
+import GarageForm from './components/GarageForm/GarageForm.tsx';
 
 function Garage() {
   const cars = useSelector(selectCars);
@@ -14,14 +16,12 @@ function Garage() {
   }, [dispatch]);
 
   return (
-    <div>
+    <Box sx={{ mt: 2 }}>
+      <GarageForm />
       {cars.map((car) => (
         <GarageItem key={car.id} carColor={car.color} name={car.name} />
       ))}
-      {/* <GarageItem carColor="blue" name="BMW" />
-      <GarageItem carColor="red" name="Mercedes" />
-      <GarageItem carColor="black" name="Toyota" /> */}
-    </div>
+    </Box>
   );
 }
 
