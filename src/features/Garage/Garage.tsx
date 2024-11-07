@@ -19,7 +19,12 @@ function Garage() {
     <Box sx={{ mt: 2 }}>
       <GarageForm />
       {cars.map((car) => (
-        <GarageItem key={car.id} carColor={car.color} name={car.name} />
+        <GarageItem
+          key={car.id}
+          id={car.id}
+          carColor={car.color}
+          name={car.name}
+        />
       ))}
     </Box>
   );

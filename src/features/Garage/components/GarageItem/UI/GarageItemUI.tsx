@@ -5,9 +5,10 @@ import classes from './GarageItem.module.css';
 interface Props {
   carColor: string;
   name: string;
+  switchEngine: () => void;
 }
 
-function GarageItemUI({ carColor, name }: Props): JSX.Element {
+function GarageItemUI({ carColor, name, switchEngine }: Props): JSX.Element {
   return (
     <Grid container sx={{ my: 2 }}>
       <Grid container id="controlPanel" size={3} spacing={2}>
@@ -20,7 +21,11 @@ function GarageItemUI({ carColor, name }: Props): JSX.Element {
           </Button>
         </Grid>
         <Grid size={4}>
-          <Button variant="contained" sx={{ width: '100%' }}>
+          <Button
+            variant="contained"
+            sx={{ width: '100%' }}
+            onClick={switchEngine}
+          >
             Start
           </Button>
           <Button variant="outlined" sx={{ width: '100%' }}>
