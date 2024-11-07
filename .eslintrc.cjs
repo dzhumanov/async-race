@@ -30,8 +30,15 @@ module.exports = {
       {
         js: 'never',
         jsx: 'never',
-        ts: 'never',
+        ts: 'always',
         tsx: 'always',
+      },
+    ],
+    'no-param-reassign': [
+      'error',
+      {
+        props: true,
+        ignorePropertyModificationsFor: ['state'],
       },
     ],
     'max-lines-per-function': ['error', { max: 40 }],
