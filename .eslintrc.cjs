@@ -35,6 +35,6 @@ module.exports = {
       },
     ],
     'max-lines-per-function': ['error', { max: 40 }],
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
-  endOfLine: "lf",
 };

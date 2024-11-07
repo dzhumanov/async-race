@@ -1,13 +1,13 @@
-import GarageItem from "./components/GarageItem/GarageItem";
+import GarageItem from './components/GarageItem/GarageItem.tsx';
 
-const Garage = () => {
-    return (
-        <div>
-            <GarageItem carColor="blue" name="BMW"/>
-            <GarageItem carColor="red" name="Mercedes"/>
-            <GarageItem carColor="black" name="Toyota"/>
-        </div>
-    );
-};
+function Garage() {
+  return (
+    <div>
+      <GarageItem carColor="blue" name="BMW" />
+      <GarageItem carColor="red" name="Mercedes" />
+      <GarageItem carColor="black" name="Toyota" />
+    </div>
+  );
+}
 
 export default Garage;

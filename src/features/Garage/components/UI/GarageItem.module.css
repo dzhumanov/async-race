@@ -1,0 +1,12 @@
+.raceTrack {
+  height: auto;
+  background-color: black;
+  display: flex;
+  align-items: center;
+
+  & .name {
+    color: white;
+    text-transform: uppercase;
+    margin-left: 12px;
+  }
+}
