@@ -21,6 +21,7 @@ module.exports = {
     project: './tsconfig.app.json',
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
+  ignorePatterns: ['vite.config.ts'],
   rules: {
     'react/react-in-jsx-scope': 0,
     'import/extensions': [
