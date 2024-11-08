@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
-import { Box, Button, Grid2 as Grid, Typography } from '@mui/material';
-import Car from '../../../../../UI/Icons/Car/Car.tsx';
+import { Button, Grid2 as Grid } from '@mui/material';
 import classes from './GarageItem.module.css';
+import RaceTrack from './RaceTrack.tsx';
+import ControlButtons from '../ControlButtons.tsx';
 
 interface Props {
   carColor: string;
@@ -37,35 +38,18 @@ const GarageItemUI = forwardRef<HTMLDivElement, Props>(function GarageItemUI(
           </Button>
         </Grid>
         <Grid size={5}>
-          <Button
-            variant="contained"
-            sx={{ width: '100%' }}
-            onClick={switchEngine}
-          >
-            Start
-          </Button>
-          <Button variant="outlined" sx={{ width: '100%' }}>
-            Stop
-          </Button>
+          <ControlButtons switchEngine={switchEngine} />
         </Grid>
       </Grid>
       <Grid size={10} ref={ref} id="raceTrack" className={classes.raceTrack}>
-        <Box
-          component="div"
-          className={`${classes.car} ${status ? classes.engineOn : ''}`}
-          sx={{
-            transform: status ? `translateX(${trackWidth}px)` : 'translateX(0)',
-            transition: `transform ${transitionDuration}s linear`,
-          }}
-        >
-          <Car color={carColor} />
-        </Box>
-        <Typography variant="h3" className={classes.name}>
-          {name}
-        </Typography>
-        <Typography variant="body1" className={classes.name}>
-          Speed: {velocity}km/h
-        </Typography>
+        <RaceTrack
+          status={status}
+          velocity={velocity}
+          trackWidth={trackWidth}
+          transitionDuration={transitionDuration}
+          name={name}
+          carColor={carColor}
+        />
       </Grid>
     </Grid>
   );

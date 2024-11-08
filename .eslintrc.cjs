@@ -42,7 +42,7 @@ module.exports = {
         ignorePropertyModificationsFor: ['state'],
       },
     ],
-    // 'max-lines-per-function': ['error', { max: 40 }],
+    'max-lines-per-function': ['error', { max: 40 }],
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'import/no-extraneous-dependencies': [
       'error',
