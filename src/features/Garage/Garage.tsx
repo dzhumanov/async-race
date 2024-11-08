@@ -24,6 +24,7 @@ function Garage() {
           id={car.id}
           carColor={car.color}
           name={car.name}
+          velocity={car.velocity || 0}
         />
       ))}
     </Box>

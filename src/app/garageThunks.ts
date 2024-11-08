@@ -1,5 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Car, CarMutation, EngineMutation, EngineResponse } from '../types.ts';
+import {
+  Car,
+  CarMutation,
+  EngineMutation,
+  EngineResponseMutation,
+} from '../types.ts';
 import axiosApi from '../axiosApi.ts';
 
 export const fetchCars = createAsyncThunk<Car[]>(
@@ -22,19 +27,23 @@ export const createCar = createAsyncThunk<void, CarMutation>(
   }
 );
 
-export const switchEngine = createAsyncThunk<EngineResponse, EngineMutation>(
-  'garage/engine',
-  async (engineMutation) => {
-    try {
-      const response = await axiosApi.patch(
-        `/engine?id=${engineMutation.id}&status=${engineMutation.status}`
-      );
-      return response.data;
-    } catch (e) {
-      return console.error({ message: 'error!', error: e });
-    }
+export const switchEngine = createAsyncThunk<
+  EngineResponseMutation,
+  EngineMutation,
+  { rejectValue: { message: string } }
+>('garage/engine', async (engineMutation, { rejectWithValue }) => {
+  try {
+    const response = await axiosApi.patch(
+      `/engine?id=${engineMutation.id}&status=${engineMutation.status}`
+    );
+    return {
+      responseData: response.data,
+      id: engineMutation.id,
+    };
+  } catch (e) {
+    return rejectWithValue({ message: 'error!' });
   }
-);
+});
 
 export const driveCar = createAsyncThunk<void, string>(
   'garage/drive',

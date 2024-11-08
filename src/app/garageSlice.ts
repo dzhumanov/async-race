@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Car } from '../types.ts';
-import { createCar, fetchCars } from './garageThunks.ts';
+import { createCar, fetchCars, switchEngine } from './garageThunks.ts';
 
 export interface GarageState {
   cars: Car[];
@@ -34,6 +34,19 @@ export const garageSlice = createSlice({
       state.loadingStatus = false;
     });
     builder.addCase(createCar.rejected, (state) => {
+      state.loadingStatus = false;
+    });
+    builder.addCase(switchEngine.pending, (state) => {
+      state.loadingStatus = true;
+    });
+    builder.addCase(switchEngine.fulfilled, (state, { payload: response }) => {
+      state.loadingStatus = false;
+      const car = state.cars.find((c) => c.id === response.id);
+      if (car) {
+        car.velocity = response.responseData.velocity;
+      }
+    });
+    builder.addCase(switchEngine.rejected, (state) => {
       state.loadingStatus = false;
     });
   },

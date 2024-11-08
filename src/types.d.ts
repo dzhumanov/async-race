@@ -2,6 +2,7 @@ export interface Car {
   name: string;
   color: string;
   id: string;
+  velocity?: number;
 }
 
 export interface CarMutation {
@@ -10,8 +11,13 @@ export interface CarMutation {
 }
 
 export interface EngineResponse {
-  velocity: string;
-  distance: string;
+  velocity: number;
+  distance: number;
+}
+
+export interface EngineResponseMutation {
+  responseData: EngineResponse;
+  id: string;
 }
 
 export interface EngineMutation {
