@@ -3,6 +3,7 @@ export interface Car {
   color: string;
   id: string;
   velocity?: number;
+  status: boolean;
 }
 
 export interface CarMutation {

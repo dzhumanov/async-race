@@ -5,14 +5,20 @@ import GarageItemUI from './UI/GarageItemUI.tsx';
 
 interface Props {
   id: string;
-  carColor: string;
   name: string;
+  carColor: string;
   velocity: number;
+  status: boolean;
 }
 
-function GarageItem({ id, carColor, name, velocity = 0 }: Props): JSX.Element {
+function GarageItem({
+  id,
+  carColor,
+  name,
+  velocity = 0,
+  status,
+}: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const [status, setStatus] = useState<boolean>(false);
   const [trackWidth, setTrackWidth] = useState<number>(0);
   const [transitionDuration, setTransitionDuration] = useState<number>(0);
   const raceTrackRef = useRef<HTMLDivElement>(null);
@@ -31,7 +37,6 @@ function GarageItem({ id, carColor, name, velocity = 0 }: Props): JSX.Element {
 
   const switchCarEngine = async () => {
     await dispatch(switchEngine({ id, status: 'started' }));
-    setStatus(true);
     console.log('engine started');
     await dispatch(driveCar(id));
     console.log('car is driving');

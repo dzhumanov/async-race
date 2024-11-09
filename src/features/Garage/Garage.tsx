@@ -5,7 +5,7 @@ import GarageItem from './components/GarageItem/GarageItem.tsx';
 import { selectCars } from '../../app/garageSlice.ts';
 import { useAppDispatch } from '../../app/hooks.ts';
 import { fetchCars } from '../../app/garageThunks.ts';
-import GarageForm from './components/GarageForm/GarageForm.tsx';
+import GarageControls from './components/GarageControls/GarageControls.tsx';
 
 function Garage() {
   const cars = useSelector(selectCars);
@@ -15,16 +15,21 @@ function Garage() {
     dispatch(fetchCars());
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log(cars);
+  });
+
   return (
     <Box sx={{ mt: 2 }}>
-      <GarageForm />
+      <GarageControls />
       {cars.map((car) => (
         <GarageItem
           key={car.id}
           id={car.id}
-          carColor={car.color}
           name={car.name}
+          carColor={car.color}
           velocity={car.velocity || 0}
+          status={car.status}
         />
       ))}
     </Box>

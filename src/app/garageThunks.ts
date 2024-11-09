@@ -6,12 +6,20 @@ import {
   EngineResponseMutation,
 } from '../types.ts';
 import axiosApi from '../axiosApi.ts';
+import { switchEngineStatus } from './garageSlice.ts';
 
 export const fetchCars = createAsyncThunk<Car[]>(
   'garage/fetchAll',
   async () => {
     const response = await axiosApi.get<Car[]>('/garage');
-    return response.data;
+    const mutatedResponse = response.data.map((car) => {
+      return {
+        ...car,
+        velocity: 0,
+        status: false,
+      };
+    });
+    return mutatedResponse;
   }
 );
 
@@ -31,11 +39,14 @@ export const switchEngine = createAsyncThunk<
   EngineResponseMutation,
   EngineMutation,
   { rejectValue: { message: string } }
->('garage/engine', async (engineMutation, { rejectWithValue }) => {
+>('garage/engine', async (engineMutation, { dispatch, rejectWithValue }) => {
   try {
     const response = await axiosApi.patch(
       `/engine?id=${engineMutation.id}&status=${engineMutation.status}`
     );
+
+    dispatch(switchEngineStatus(engineMutation.id));
+
     return {
       responseData: response.data,
       id: engineMutation.id,

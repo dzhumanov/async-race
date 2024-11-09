@@ -15,7 +15,14 @@ export const initialState: GarageState = {
 export const garageSlice = createSlice({
   name: 'garage',
   initialState,
-  reducers: {},
+  reducers: {
+    switchEngineStatus: (state, { payload: id }) => {
+      const car = state.cars.find((c) => c.id === id);
+      if (car) {
+        car.status = !car.status;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCars.pending, (state) => {
       state.loadingStatus = true;
@@ -57,4 +64,5 @@ export const garageSlice = createSlice({
 });
 
 export const garageReducer = garageSlice.reducer;
+export const { switchEngineStatus } = garageSlice.actions;
 export const { selectCars, loadingStatus } = garageSlice.selectors;

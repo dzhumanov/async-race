@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-
-import { CarMutation } from '../../../../types.ts';
+import { CarMutation } from '../../../../../types.ts';
+import { useAppDispatch } from '../../../../../app/hooks.ts';
+import { createCar, fetchCars } from '../../../../../app/garageThunks.ts';
 import GarageFormUI from './UI/GarageFormUI.tsx';
-import { useAppDispatch } from '../../../../app/hooks.ts';
-import { createCar, fetchCars } from '../../../../app/garageThunks.ts';
 
 function GarageForm() {
   const [state, setState] = useState<CarMutation>({
