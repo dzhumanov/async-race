@@ -8,6 +8,7 @@ interface Props {
   carColor: string;
   name: string;
   switchEngine: () => void;
+  turnOffEngine: () => void;
   velocity: number;
   status: boolean;
   trackWidth: number;
@@ -19,6 +20,7 @@ const GarageItemUI = forwardRef<HTMLDivElement, Props>(function GarageItemUI(
     carColor,
     name,
     switchEngine,
+    turnOffEngine,
     velocity,
     status,
     trackWidth,
@@ -38,7 +40,10 @@ const GarageItemUI = forwardRef<HTMLDivElement, Props>(function GarageItemUI(
           </Button>
         </Grid>
         <Grid size={5}>
-          <ControlButtons switchEngine={switchEngine} />
+          <ControlButtons
+            switchEngine={switchEngine}
+            turnOffEngine={turnOffEngine}
+          />
         </Grid>
       </Grid>
       <Grid size={10} ref={ref} id="raceTrack" className={classes.raceTrack}>

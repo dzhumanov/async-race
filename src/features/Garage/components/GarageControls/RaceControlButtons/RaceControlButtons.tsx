@@ -1,7 +1,11 @@
 import { Button, Grid2 as Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../../../app/hooks.ts';
-import { driveCar, switchEngine } from '../../../../../app/garageThunks.ts';
+import {
+  driveCar,
+  fetchCars,
+  switchEngine,
+} from '../../../../../app/garageThunks.ts';
 import { selectCars } from '../../../../../app/garageSlice.ts';
 
 function RaceControlButtons() {
@@ -18,12 +22,16 @@ function RaceControlButtons() {
     await Promise.all(cars.map((car) => dispatch(driveCar(car.id))));
   };
 
+  const resetRace = async () => {
+    await dispatch(fetchCars());
+  };
+
   return (
     <Grid container spacing={2}>
       <Button variant="contained" onClick={startAllEngines}>
         Start race
       </Button>
-      <Button variant="contained" color="error">
+      <Button variant="contained" color="error" onClick={resetRace}>
         Reset race
       </Button>
       <Button variant="contained">Generate cars</Button>

@@ -16,10 +16,17 @@ export const garageSlice = createSlice({
   name: 'garage',
   initialState,
   reducers: {
-    switchEngineStatus: (state, { payload: id }) => {
+    turnOnEngine: (state, { payload: id }) => {
       const car = state.cars.find((c) => c.id === id);
       if (car) {
-        car.status = !car.status;
+        car.status = true;
+      }
+    },
+    turnOffEngine: (state, { payload: id }) => {
+      const car = state.cars.find((c) => c.id === id);
+      if (car) {
+        car.status = false;
+        car.velocity = 0;
       }
     },
   },
@@ -64,5 +71,5 @@ export const garageSlice = createSlice({
 });
 
 export const garageReducer = garageSlice.reducer;
-export const { switchEngineStatus } = garageSlice.actions;
+export const { turnOnEngine, turnOffEngine } = garageSlice.actions;
 export const { selectCars, loadingStatus } = garageSlice.selectors;

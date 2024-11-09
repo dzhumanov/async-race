@@ -7,7 +7,7 @@ import {
   EngineResponseMutation,
 } from '../types.ts';
 import axiosApi from '../axiosApi.ts';
-import { switchEngineStatus } from './garageSlice.ts';
+import { turnOffEngine, turnOnEngine } from './garageSlice.ts';
 
 export const fetchCars = createAsyncThunk<Car[]>(
   'garage/fetchAll',
@@ -59,12 +59,12 @@ export const driveCar = createAsyncThunk<void, string>(
   'garage/drive',
   async (id, { dispatch }) => {
     try {
-      dispatch(switchEngineStatus(id));
+      dispatch(turnOnEngine(id));
       const response = await axiosApi.patch(`/engine?id=${id}&status=drive`);
       return response.data;
     } catch (e) {
       if (e instanceof AxiosError && e.response?.status === 500) {
-        dispatch(switchEngineStatus(id));
+        dispatch(turnOffEngine(id));
       }
       return console.error({ message: 'error!', error: e });
     }
