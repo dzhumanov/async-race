@@ -9,10 +9,13 @@ function RaceControlButtons() {
   const cars = useSelector(selectCars);
 
   const startAllEngines = async () => {
-    cars.forEach(async (car) => {
-      await dispatch(switchEngine({ id: car.id, status: 'started' }));
-      await dispatch(driveCar(car.id));
-    });
+    await Promise.all(
+      cars.map((car) =>
+        dispatch(switchEngine({ id: car.id, status: 'started' }))
+      )
+    );
+
+    await Promise.all(cars.map((car) => dispatch(driveCar(car.id))));
   };
 
   return (

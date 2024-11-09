@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import classes from './GarageItem.module.css';
 import Car from '../../../../../UI/Icons/Car/Car.tsx';
@@ -21,21 +21,48 @@ function RaceTrack({
   carColor,
 }: Props): JSX.Element {
   const [isStarted, setIsStarted] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState<number>(0);
+  const carRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (status) {
       setIsStarted(true);
+    } else {
+      setIsStarted(false);
     }
   }, [status]);
+
+  useEffect(() => {
+    if (isStarted) {
+      const interval = setInterval(() => {
+        setCurrentPosition((prevPosition) => prevPosition + velocity);
+
+        if (carRef.current) {
+          const { transform } = getComputedStyle(carRef.current);
+          const match = transform.match(/matrix.*\((.+)\)/);
+          if (match && match[1]) {
+            const values = match[1].split(', ');
+            const xPosition = parseFloat(values[4]);
+            setCurrentPosition(xPosition);
+          }
+        }
+      }, 100);
+
+      return () => clearInterval(interval);
+    }
+    return () => {};
+  }, [isStarted, velocity]);
+
   return (
     <>
       <Box
+        ref={carRef}
         component="div"
         className={`${classes.car} ${status ? classes.engineOn : ''}`}
         sx={{
           transform: isStarted
             ? `translateX(${trackWidth}px)`
-            : 'translateX(0)',
+            : `translateX(${currentPosition}px)`,
           transition: isStarted
             ? `transform ${transitionDuration}s linear`
             : 'none',

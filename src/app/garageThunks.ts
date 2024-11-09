@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 import {
   Car,
   CarMutation,
@@ -39,13 +40,11 @@ export const switchEngine = createAsyncThunk<
   EngineResponseMutation,
   EngineMutation,
   { rejectValue: { message: string } }
->('garage/engine', async (engineMutation, { dispatch, rejectWithValue }) => {
+>('garage/engine', async (engineMutation, { rejectWithValue }) => {
   try {
     const response = await axiosApi.patch(
       `/engine?id=${engineMutation.id}&status=${engineMutation.status}`
     );
-
-    dispatch(switchEngineStatus(engineMutation.id));
 
     return {
       responseData: response.data,
@@ -58,11 +57,15 @@ export const switchEngine = createAsyncThunk<
 
 export const driveCar = createAsyncThunk<void, string>(
   'garage/drive',
-  async (id) => {
+  async (id, { dispatch }) => {
     try {
+      dispatch(switchEngineStatus(id));
       const response = await axiosApi.patch(`/engine?id=${id}&status=drive`);
       return response.data;
     } catch (e) {
+      if (e instanceof AxiosError && e.response?.status === 500) {
+        dispatch(switchEngineStatus(id));
+      }
       return console.error({ message: 'error!', error: e });
     }
   }

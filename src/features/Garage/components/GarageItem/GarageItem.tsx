@@ -37,9 +37,7 @@ function GarageItem({
 
   const switchCarEngine = async () => {
     await dispatch(switchEngine({ id, status: 'started' }));
-    console.log('engine started');
     await dispatch(driveCar(id));
-    console.log('car is driving');
   };
 
   return (

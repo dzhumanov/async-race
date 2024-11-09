@@ -15,10 +15,6 @@ function Garage() {
     dispatch(fetchCars());
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log(cars);
-  });
-
   return (
     <Box sx={{ mt: 2 }}>
       <GarageControls />
