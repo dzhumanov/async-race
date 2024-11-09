@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import {
   Car,
   CarMutation,
@@ -57,12 +57,19 @@ export const switchEngine = createAsyncThunk<
 
 export const driveCar = createAsyncThunk<void, string>(
   'garage/drive',
-  async (id, { dispatch }) => {
+  async (id, { dispatch, signal }) => {
     try {
       dispatch(turnOnEngine(id));
-      const response = await axiosApi.patch(`/engine?id=${id}&status=drive`);
+      const response = await axiosApi.patch(
+        `/engine?id=${id}&status=drive`,
+        {},
+        { signal }
+      );
       return response.data;
     } catch (e) {
+      if (axios.isCancel(e)) {
+        console.log('Cancelled');
+      }
       if (e instanceof AxiosError && e.response?.status === 500) {
         dispatch(turnOffEngine(id));
       }

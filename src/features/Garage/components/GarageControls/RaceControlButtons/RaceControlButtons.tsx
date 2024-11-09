@@ -6,23 +6,42 @@ import {
   fetchCars,
   switchEngine,
 } from '../../../../../app/garageThunks.ts';
-import { selectCars } from '../../../../../app/garageSlice.ts';
+import {
+  resetCarPosition,
+  selectCars,
+  turnOffEngine,
+} from '../../../../../app/garageSlice.ts';
 
 function RaceControlButtons() {
   const dispatch = useAppDispatch();
   const cars = useSelector(selectCars);
+  let driveController: AbortController | null = null;
 
   const startAllEngines = async () => {
     await Promise.all(
-      cars.map((car) =>
-        dispatch(switchEngine({ id: car.id, status: 'started' }))
-      )
+      cars.map(async (car) => {
+        if (driveController) {
+          driveController.abort();
+        }
+        driveController = new AbortController();
+        dispatch(resetCarPosition(car.id));
+        await dispatch(switchEngine({ id: car.id, status: 'started' }));
+      })
     );
 
     await Promise.all(cars.map((car) => dispatch(driveCar(car.id))));
   };
 
   const resetRace = async () => {
+    if (driveController) {
+      driveController.abort();
+      driveController = null;
+    }
+    cars.map(async (car) => {
+      dispatch(resetCarPosition(car.id));
+      dispatch(turnOffEngine(car.id));
+      await dispatch(switchEngine({ id: car.id, status: 'stopped' }));
+    });
     await dispatch(fetchCars());
   };
 

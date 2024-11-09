@@ -30,7 +30,9 @@ function RaceTrack({
     } else {
       setIsStarted(false);
     }
+  }, [status]);
 
+  useEffect(() => {
     if (!status && velocity === 0) {
       setCurrentPosition(0);
     }

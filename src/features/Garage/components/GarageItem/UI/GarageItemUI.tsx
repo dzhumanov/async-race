@@ -7,7 +7,7 @@ import ControlButtons from '../ControlButtons.tsx';
 interface Props {
   carColor: string;
   name: string;
-  switchEngine: () => void;
+  turnOnCarEngine: () => void;
   turnOffEngine: () => void;
   velocity: number;
   status: boolean;
@@ -19,7 +19,7 @@ const GarageItemUI = forwardRef<HTMLDivElement, Props>(function GarageItemUI(
   {
     carColor,
     name,
-    switchEngine,
+    turnOnCarEngine,
     turnOffEngine,
     velocity,
     status,
@@ -41,8 +41,9 @@ const GarageItemUI = forwardRef<HTMLDivElement, Props>(function GarageItemUI(
         </Grid>
         <Grid size={5}>
           <ControlButtons
-            switchEngine={switchEngine}
+            turnOnCarEngine={turnOnCarEngine}
             turnOffEngine={turnOffEngine}
+            status={status}
           />
         </Grid>
       </Grid>

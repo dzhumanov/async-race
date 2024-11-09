@@ -2,7 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { driveCar, switchEngine } from '../../../../app/garageThunks.ts';
 import { useAppDispatch } from '../../../../app/hooks.ts';
 import GarageItemUI from './UI/GarageItemUI.tsx';
-import { turnOffEngine } from '../../../../app/garageSlice.ts';
+import {
+  resetCarPosition,
+  turnOffEngine,
+} from '../../../../app/garageSlice.ts';
 
 interface Props {
   id: string;
@@ -23,6 +26,7 @@ function GarageItem({
   const [trackWidth, setTrackWidth] = useState<number>(0);
   const [transitionDuration, setTransitionDuration] = useState<number>(0);
   const raceTrackRef = useRef<HTMLDivElement>(null);
+  let driveController: AbortController | null = null;
 
   useEffect(() => {
     if (raceTrackRef.current) {
@@ -36,13 +40,23 @@ function GarageItem({
     }
   }, [velocity]);
 
-  const switchCarEngine = async () => {
+  const turnOnCarEngine = async () => {
+    if (driveController) {
+      driveController.abort();
+    }
+    driveController = new AbortController();
+    dispatch(resetCarPosition(id));
     await dispatch(switchEngine({ id, status: 'started' }));
     await dispatch(driveCar(id));
   };
 
   const turnOffCarEngine = async () => {
-    await dispatch(turnOffEngine(id));
+    if (driveController) {
+      driveController.abort();
+      driveController = null;
+    }
+    dispatch(resetCarPosition(id));
+    dispatch(turnOffEngine(id));
     await dispatch(switchEngine({ id, status: 'stopped' }));
   };
 
@@ -51,7 +65,7 @@ function GarageItem({
       ref={raceTrackRef}
       carColor={carColor}
       name={name}
-      switchEngine={switchCarEngine}
+      turnOnCarEngine={turnOnCarEngine}
       turnOffEngine={turnOffCarEngine}
       velocity={velocity}
       status={status}
