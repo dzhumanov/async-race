@@ -13,6 +13,7 @@ interface Props {
   carColor: string;
   velocity: number;
   status: boolean;
+  engine: boolean;
 }
 
 function GarageItem({
@@ -21,6 +22,7 @@ function GarageItem({
   name,
   velocity = 0,
   status,
+  engine,
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const [trackWidth, setTrackWidth] = useState<number>(0);
@@ -69,6 +71,7 @@ function GarageItem({
       turnOffEngine={turnOffCarEngine}
       velocity={velocity}
       status={status}
+      engine={engine}
       trackWidth={trackWidth}
       transitionDuration={transitionDuration}
     />

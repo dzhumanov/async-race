@@ -4,6 +4,7 @@ export interface Car {
   id: string;
   velocity?: number;
   status: boolean;
+  engine: boolean;
 }
 
 export interface CarMutation {

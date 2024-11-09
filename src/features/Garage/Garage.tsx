@@ -30,6 +30,7 @@ function Garage() {
           carColor={car.color}
           velocity={car.velocity || 0}
           status={car.status}
+          engine={car.engine}
         />
       ))}
     </Box>
