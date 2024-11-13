@@ -1,14 +1,17 @@
 import { forwardRef } from 'react';
-import { Button, Grid2 as Grid } from '@mui/material';
+import { Grid2 as Grid } from '@mui/material';
 import classes from './GarageItem.module.css';
 import RaceTrack from './RaceTrack.tsx';
-import ControlButtons from '../ControlButtons.tsx';
+import RaceButtons from '../RaceButtons/RaceButtons.tsx';
+import CarControlButtons from '../CarControlButtons/CarControlButtons.tsx';
 
 interface Props {
   carColor: string;
   name: string;
   turnOnCarEngine: () => void;
   turnOffEngine: () => void;
+  handleDelete: () => void;
+  handleSelect: () => void;
   velocity: number;
   status: boolean;
   engine: boolean;
@@ -22,6 +25,8 @@ const GarageItemUI = forwardRef<HTMLDivElement, Props>(function GarageItemUI(
     name,
     turnOnCarEngine,
     turnOffEngine,
+    handleDelete,
+    handleSelect,
     velocity,
     status,
     engine,
@@ -34,18 +39,17 @@ const GarageItemUI = forwardRef<HTMLDivElement, Props>(function GarageItemUI(
     <Grid container sx={{ my: 2 }}>
       <Grid container id="controlPanel" size={2} spacing={2}>
         <Grid size={5}>
-          <Button variant="contained" sx={{ width: '100%' }}>
-            Select
-          </Button>
-          <Button variant="outlined" sx={{ width: '100%' }}>
-            Remove
-          </Button>
+          <CarControlButtons
+            handleDelete={handleDelete}
+            handleSelect={handleSelect}
+          />
         </Grid>
         <Grid size={5}>
-          <ControlButtons
+          <RaceButtons
             turnOnCarEngine={turnOnCarEngine}
             turnOffEngine={turnOffEngine}
             status={status}
+            engineStatus={engine}
           />
         </Grid>
       </Grid>

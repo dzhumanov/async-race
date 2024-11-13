@@ -8,6 +8,7 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFormSubmit: (e: React.FormEvent) => void;
   onColorChange: (color: string) => void;
+  status: 'create' | 'update';
 }
 
 function GarageFormUI({
@@ -16,6 +17,7 @@ function GarageFormUI({
   color,
   onChange,
   onColorChange,
+  status,
 }: Props): JSX.Element {
   return (
     <form onSubmit={onFormSubmit}>
@@ -35,7 +37,7 @@ function GarageFormUI({
         </Grid>
         <Grid size={3}>
           <Button variant="outlined" type="submit">
-            Create
+            {status === 'create' ? 'Create' : 'Update'}
           </Button>
         </Grid>
       </Grid>

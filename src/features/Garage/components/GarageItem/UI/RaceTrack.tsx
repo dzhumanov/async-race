@@ -118,7 +118,7 @@ function RaceTrack({
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>This car&apos;s engine is broken.</Typography>
+        <Typography sx={{ p: 1 }}>{name}&apos;s engine is broken.</Typography>
       </Popover>
     </>
   );

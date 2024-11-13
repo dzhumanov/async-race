@@ -1,10 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-import { driveCar, switchEngine } from '../../../../app/garageThunks.ts';
+import {
+  deleteCar,
+  driveCar,
+  fetchCars,
+  switchEngine,
+} from '../../../../app/garageThunks.ts';
 import { useAppDispatch } from '../../../../app/hooks.ts';
 import GarageItemUI from './UI/GarageItemUI.tsx';
 import {
   resetCarPosition,
   turnOffEngine,
+  updateCarState,
 } from '../../../../app/garageSlice.ts';
 
 interface Props {
@@ -62,6 +68,15 @@ function GarageItem({
     await dispatch(switchEngine({ id, status: 'stopped' }));
   };
 
+  const handleDelete = async () => {
+    await dispatch(deleteCar(id));
+    await dispatch(fetchCars());
+  };
+
+  const handleSelect = () => {
+    dispatch(updateCarState({ id, name, color: carColor }));
+  };
+
   return (
     <GarageItemUI
       ref={raceTrackRef}
@@ -69,6 +84,8 @@ function GarageItem({
       name={name}
       turnOnCarEngine={turnOnCarEngine}
       turnOffEngine={turnOffCarEngine}
+      handleDelete={handleDelete}
+      handleSelect={handleSelect}
       velocity={velocity}
       status={status}
       engine={engine}

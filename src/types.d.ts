@@ -10,6 +10,7 @@ export interface Car {
 export interface CarMutation {
   name: string;
   color: string;
+  id?: string;
 }
 
 export interface EngineResponse {

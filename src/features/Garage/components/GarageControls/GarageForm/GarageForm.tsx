@@ -7,7 +7,7 @@ import GarageFormUI from './UI/GarageFormUI.tsx';
 function GarageForm() {
   const [state, setState] = useState<CarMutation>({
     name: '',
-    color: '#ffffff',
+    color: '#ffffffff',
   });
   const dispatch = useAppDispatch();
 
@@ -40,6 +40,7 @@ function GarageForm() {
       onChange={inputChangeHandler}
       onColorChange={inputColorHandler}
       onFormSubmit={onFormSubmit}
+      status="create"
     />
   );
 }

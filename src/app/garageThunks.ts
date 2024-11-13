@@ -7,7 +7,12 @@ import {
   EngineResponseMutation,
 } from '../types.ts';
 import axiosApi from '../axiosApi.ts';
-import { brokeEngine, turnOffEngine, turnOnEngine } from './garageSlice.ts';
+import {
+  brokeEngine,
+  clearUpdateCarState,
+  turnOffEngine,
+  turnOnEngine,
+} from './garageSlice.ts';
 
 export const fetchCars = createAsyncThunk<Car[]>(
   'garage/fetchAll',
@@ -30,6 +35,34 @@ export const createCar = createAsyncThunk<void, CarMutation>(
   async (carMutation) => {
     try {
       const response = await axiosApi.post('/garage', carMutation);
+      return response.data;
+    } catch (e) {
+      return console.error({ message: 'error!', error: e });
+    }
+  }
+);
+
+export const deleteCar = createAsyncThunk<void, string>(
+  'garage/delete',
+  async (id) => {
+    try {
+      const response = await axiosApi.delete(`/garage/${id}`);
+      return response.data;
+    } catch (e) {
+      return console.error({ message: 'error!', error: e });
+    }
+  }
+);
+
+export const updateCar = createAsyncThunk<void, CarMutation>(
+  'garage/update',
+  async (carMutation, { dispatch }) => {
+    try {
+      const response = await axiosApi.put(
+        `/garage/${carMutation.id}`,
+        carMutation
+      );
+      dispatch(clearUpdateCarState());
       return response.data;
     } catch (e) {
       return console.error({ message: 'error!', error: e });

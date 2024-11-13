@@ -4,12 +4,14 @@ interface Props {
   turnOnCarEngine: () => void;
   turnOffEngine: () => void;
   status: boolean;
+  engineStatus: boolean;
 }
 
-function ControlButtons({
+function RaceButtons({
   turnOnCarEngine,
   turnOffEngine,
   status,
+  engineStatus,
 }: Props): JSX.Element {
   return (
     <>
@@ -25,7 +27,7 @@ function ControlButtons({
         variant="outlined"
         sx={{ width: '100%' }}
         onClick={turnOffEngine}
-        disabled={!status}
+        disabled={!status && engineStatus}
       >
         Stop
       </Button>
@@ -33,4 +35,4 @@ function ControlButtons({
   );
 }
 
-export default ControlButtons;
+export default RaceButtons;
