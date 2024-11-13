@@ -4,14 +4,14 @@ import {
   driveCar,
   fetchCars,
   switchEngine,
-} from '../../../../app/garageThunks.ts';
+} from '../../../../app/garage/garageThunks.ts';
 import { useAppDispatch } from '../../../../app/hooks.ts';
 import GarageItemUI from './UI/GarageItemUI.tsx';
 import {
   resetCarPosition,
   turnOffEngine,
   updateCarState,
-} from '../../../../app/garageSlice.ts';
+} from '../../../../app/garage/garageSlice.ts';
 
 interface Props {
   id: string;

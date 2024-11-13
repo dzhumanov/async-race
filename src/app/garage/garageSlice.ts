@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Car, CarMutation } from '../types.ts';
+import { Car, CarMutation } from '../../types.ts';
 import { createCar, fetchCars, switchEngine } from './garageThunks.ts';
 
 export interface GarageState {
@@ -89,7 +89,7 @@ export const garageSlice = createSlice({
   selectors: {
     selectCars: (state) => state.cars,
     selectUpdateCar: (state) => state.updateCar,
-    loadingStatus: (state) => state.loadingStatus,
+    selectLoadingStatus: (state) => state.loadingStatus,
   },
 });
 
@@ -102,5 +102,5 @@ export const {
   updateCarState,
   clearUpdateCarState,
 } = garageSlice.actions;
-export const { selectCars, selectUpdateCar, loadingStatus } =
+export const { selectCars, selectUpdateCar, selectLoadingStatus } =
   garageSlice.selectors;

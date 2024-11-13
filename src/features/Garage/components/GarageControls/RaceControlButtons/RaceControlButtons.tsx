@@ -5,12 +5,12 @@ import {
   driveCar,
   fetchCars,
   switchEngine,
-} from '../../../../../app/garageThunks.ts';
+} from '../../../../../app/garage/garageThunks.ts';
 import {
   resetCarPosition,
   selectCars,
   turnOffEngine,
-} from '../../../../../app/garageSlice.ts';
+} from '../../../../../app/garage/garageSlice.ts';
 
 function RaceControlButtons() {
   const dispatch = useAppDispatch();

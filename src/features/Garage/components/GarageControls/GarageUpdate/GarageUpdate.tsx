@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { CarMutation } from '../../../../../types.ts';
 import { useAppDispatch } from '../../../../../app/hooks.ts';
-import { fetchCars, updateCar } from '../../../../../app/garageThunks.ts';
+import {
+  fetchCars,
+  updateCar,
+} from '../../../../../app/garage/garageThunks.ts';
 import GarageFormUI from '../GarageForm/UI/GarageFormUI.tsx';
-import { selectUpdateCar } from '../../../../../app/garageSlice.ts';
+import { selectUpdateCar } from '../../../../../app/garage/garageSlice.ts';
 
 const initialState: CarMutation = {
   name: '',

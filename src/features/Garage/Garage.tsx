@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Box } from '@mui/material';
 import GarageItem from './components/GarageItem/GarageItem.tsx';
-import { selectCars } from '../../app/garageSlice.ts';
+import { selectCars } from '../../app/garage/garageSlice.ts';
 import { useAppDispatch } from '../../app/hooks.ts';
-import { fetchCars } from '../../app/garageThunks.ts';
+import { fetchCars } from '../../app/garage/garageThunks.ts';
 import GarageControls from './components/GarageControls/GarageControls.tsx';
 
 function Garage() {

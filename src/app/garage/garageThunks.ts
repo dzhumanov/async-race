@@ -5,8 +5,8 @@ import {
   CarMutation,
   EngineMutation,
   EngineResponseMutation,
-} from '../types.ts';
-import axiosApi from '../axiosApi.ts';
+} from '../../types.ts';
+import axiosApi from '../../axiosApi.ts';
 import {
   brokeEngine,
   clearUpdateCarState,

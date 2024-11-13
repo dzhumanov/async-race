@@ -27,6 +27,7 @@ function RaceTrack({
   const [isStarted, setIsStarted] = useState(false);
   const [currentPosition, setCurrentPosition] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [carWidth, setCarWidth] = useState<number>(0);
   const carRef = useRef<HTMLDivElement>(null);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -46,6 +47,12 @@ function RaceTrack({
       setIsStarted(false);
     }
   }, [status]);
+
+  useEffect(() => {
+    if (carRef.current) {
+      setCarWidth(carRef.current!.offsetHeight);
+    }
+  }, [carRef]);
 
   useEffect(() => {
     if (!status && velocity === 0) {
@@ -82,7 +89,7 @@ function RaceTrack({
         className={`${classes.car} ${status ? classes.engineOn : ''}`}
         sx={{
           transform: isStarted
-            ? `translateX(${trackWidth}px)`
+            ? `translateX(${trackWidth - carWidth}px)`
             : `translateX(${currentPosition}px)`,
           transition: isStarted
             ? `transform ${transitionDuration}s linear`
