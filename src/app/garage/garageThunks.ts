@@ -89,7 +89,7 @@ export const switchEngine = createAsyncThunk<
   }
 });
 
-export const driveCar = createAsyncThunk<void, string>(
+export const driveCar = createAsyncThunk<{ id: string }, string>(
   'garage/drive',
   async (id, { dispatch, signal }) => {
     try {
@@ -99,7 +99,10 @@ export const driveCar = createAsyncThunk<void, string>(
         {},
         { signal }
       );
-      return response.data;
+      if (response.data.success) {
+        return { id };
+      }
+      return { id, success: false };
     } catch (e) {
       if (axios.isCancel(e)) {
         console.log('Cancelled');
@@ -108,7 +111,8 @@ export const driveCar = createAsyncThunk<void, string>(
         dispatch(turnOffEngine(id));
         dispatch(brokeEngine(id));
       }
-      return console.error({ message: 'error!', error: e });
+      console.error({ message: 'error!', error: e });
+      return { id, success: false };
     }
   }
 );

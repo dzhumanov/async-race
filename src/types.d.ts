@@ -13,6 +13,12 @@ export interface CarMutation {
   id?: string;
 }
 
+export interface Winner {
+  id: string;
+  wins: number;
+  time: string;
+}
+
 export interface EngineResponse {
   velocity: number;
   distance: number;

@@ -11,6 +11,17 @@ import {
   selectCars,
   turnOffEngine,
 } from '../../../../../app/garage/garageSlice.ts';
+import { createWinner } from '../../../../../app/winners/winnersThunks.ts';
+import { Winner } from '../../../../../types.ts';
+// import { updateWinners } from '../../../../../app/winners/winnersSlice.ts';
+
+function formatElapsedTime(ms: number): string {
+  const minutes = Math.floor(ms / 60000);
+  const seconds = Math.floor((ms % 60000) / 1000);
+  const milliseconds = ms % 1000;
+
+  return `${minutes > 0 ? `${minutes}m ` : ''}${seconds}s ${milliseconds}ms`;
+}
 
 function RaceControlButtons() {
   const dispatch = useAppDispatch();
@@ -29,7 +40,20 @@ function RaceControlButtons() {
       })
     );
 
-    await Promise.all(cars.map((car) => dispatch(driveCar(car.id))));
+    const drivePromises = cars.map((car) => dispatch(driveCar(car.id)));
+
+    const startTime = Date.now();
+    const firstFinishedDrive = await Promise.race(drivePromises);
+    const elapsedTime = Date.now() - startTime;
+    // dispatch(updateWinners(firstFinishedDrive.payload));
+    const winner: Winner = {
+      id: firstFinishedDrive.payload.id as string,
+      wins: 1,
+      time: formatElapsedTime(elapsedTime),
+    };
+    dispatch(createWinner(winner));
+
+    await Promise.all(drivePromises);
   };
 
   const resetRace = async () => {
