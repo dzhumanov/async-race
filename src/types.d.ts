@@ -33,3 +33,15 @@ export interface EngineMutation {
   id: string;
   status: 'started' | 'stopped';
 }
+
+export interface DrivePayload {
+  id: string;
+  success: boolean;
+}
+
+export interface DriveResult {
+  payload: {
+    id: string;
+    success: boolean;
+  };
+}

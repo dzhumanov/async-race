@@ -89,30 +89,30 @@ export const switchEngine = createAsyncThunk<
   }
 });
 
-export const driveCar = createAsyncThunk<{ id: string }, string>(
-  'garage/drive',
-  async (id, { dispatch, signal }) => {
-    try {
-      dispatch(turnOnEngine(id));
-      const response = await axiosApi.patch(
-        `/engine?id=${id}&status=drive`,
-        {},
-        { signal }
-      );
-      if (response.data.success) {
-        return { id, success: true };
-      }
-      return { id, success: false };
-    } catch (e) {
-      if (axios.isCancel(e)) {
-        console.log('Cancelled');
-      }
-      if (e instanceof AxiosError && e.response?.status === 500) {
-        dispatch(turnOffEngine(id));
-        dispatch(brokeEngine(id));
-      }
-      console.error({ message: 'error!', error: e });
-      return { id, success: false };
+export const driveCar = createAsyncThunk<
+  { id: string; success: boolean },
+  string
+>('garage/drive', async (id, { dispatch, signal }) => {
+  try {
+    dispatch(turnOnEngine(id));
+    const response = await axiosApi.patch(
+      `/engine?id=${id}&status=drive`,
+      {},
+      { signal }
+    );
+    if (response.data.success) {
+      return { id, success: true };
     }
+    return { id, success: false };
+  } catch (e) {
+    if (axios.isCancel(e)) {
+      console.log('Cancelled');
+    }
+    if (e instanceof AxiosError && e.response?.status === 500) {
+      dispatch(turnOffEngine(id));
+      dispatch(brokeEngine(id));
+    }
+    console.error({ message: 'error!', error: e });
+    return { id, success: false };
   }
-);
+});
