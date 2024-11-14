@@ -100,7 +100,7 @@ export const driveCar = createAsyncThunk<{ id: string }, string>(
         { signal }
       );
       if (response.data.success) {
-        return { id };
+        return { id, success: true };
       }
       return { id, success: false };
     } catch (e) {

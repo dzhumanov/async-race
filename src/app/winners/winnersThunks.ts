@@ -21,3 +21,18 @@ export const createWinner = createAsyncThunk<void, Winner>(
     }
   }
 );
+
+export const updateWinner = createAsyncThunk<void, Winner>(
+  'winners/update',
+  async (winnerMutation) => {
+    try {
+      const response = await axiosApi.put(
+        `/winners/${winnerMutation.id}`,
+        winnerMutation
+      );
+      return response.data;
+    } catch (e) {
+      return console.error({ message: 'error!', error: e });
+    }
+  }
+);

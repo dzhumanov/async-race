@@ -16,7 +16,7 @@ export interface CarMutation {
 export interface Winner {
   id: string;
   wins: number;
-  time: string;
+  time: number;
 }
 
 export interface EngineResponse {

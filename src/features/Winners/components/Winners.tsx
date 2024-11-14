@@ -20,6 +20,9 @@ function Winners() {
         <div key={winner.id}>
           <Typography variant="h4">{winner.time}</Typography>
           <Typography variant="h4">Winner id: {winner.id}</Typography>
+          <Typography variant="h4" sx={{ color: 'red' }}>
+            Number of wins: {winner.wins}
+          </Typography>
         </div>
       ))}
     </div>

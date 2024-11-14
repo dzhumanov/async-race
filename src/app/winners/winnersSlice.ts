@@ -15,16 +15,7 @@ export const initialState: WinnersState = {
 export const winnersSlice = createSlice({
   name: 'winners',
   initialState,
-  reducers: {
-    // updateWinners: (state, { payload: id }) => {
-    //   const carIndex = state.winners.findIndex((winner) => winner.id === id);
-    //   if (carIndex !== -1) {
-    //     state.winners[carIndex].wins += 1;
-    //   } else {
-    //     state.winners.push({ id, wins: 1 });
-    //   }
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchWinners.pending, (state) => {
       state.loadingStatus = true;

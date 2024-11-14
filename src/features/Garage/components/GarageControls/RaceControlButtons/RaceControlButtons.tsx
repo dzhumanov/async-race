@@ -1,5 +1,6 @@
 import { Button, Grid2 as Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { useAppDispatch } from '../../../../../app/hooks.ts';
 import {
   driveCar,
@@ -11,22 +12,27 @@ import {
   selectCars,
   turnOffEngine,
 } from '../../../../../app/garage/garageSlice.ts';
-import { createWinner } from '../../../../../app/winners/winnersThunks.ts';
+import {
+  createWinner,
+  fetchWinners,
+  updateWinner,
+} from '../../../../../app/winners/winnersThunks.ts';
 import { Winner } from '../../../../../types.ts';
-// import { updateWinners } from '../../../../../app/winners/winnersSlice.ts';
+import { selectWinners } from '../../../../../app/winners/winnersSlice.ts';
 
-function formatElapsedTime(ms: number): string {
-  const minutes = Math.floor(ms / 60000);
-  const seconds = Math.floor((ms % 60000) / 1000);
-  const milliseconds = ms % 1000;
-
-  return `${minutes > 0 ? `${minutes}m ` : ''}${seconds}s ${milliseconds}ms`;
+function formatSeconds(ms: number): number {
+  return parseFloat((ms / 1000).toFixed(1));
 }
 
 function RaceControlButtons() {
   const dispatch = useAppDispatch();
   const cars = useSelector(selectCars);
+  const winners = useSelector(selectWinners);
   let driveController: AbortController | null = null;
+
+  useEffect(() => {
+    dispatch(fetchWinners());
+  }, [dispatch]);
 
   const startAllEngines = async () => {
     await Promise.all(
@@ -43,15 +49,47 @@ function RaceControlButtons() {
     const drivePromises = cars.map((car) => dispatch(driveCar(car.id)));
 
     const startTime = Date.now();
-    const firstFinishedDrive = await Promise.race(drivePromises);
+    const firstFinishedDrive = await Promise.any(
+      drivePromises.map(async (promise) => {
+        const result = await promise;
+        if (result.payload?.success) {
+          return result;
+        }
+        throw new Error('Drive failed');
+      })
+    );
+    console.log(firstFinishedDrive);
     const elapsedTime = Date.now() - startTime;
-    // dispatch(updateWinners(firstFinishedDrive.payload));
-    const winner: Winner = {
-      id: firstFinishedDrive.payload.id as string,
-      wins: 1,
-      time: formatElapsedTime(elapsedTime),
-    };
-    dispatch(createWinner(winner));
+
+    const existingWinner = winners.find(
+      (winner) => winner.id === firstFinishedDrive.payload.id
+    );
+
+    if (existingWinner) {
+      const oldTime = existingWinner.time;
+      const newTime = formatSeconds(elapsedTime);
+      console.log(elapsedTime);
+      if (newTime < oldTime) {
+        await dispatch(
+          updateWinner({
+            ...existingWinner,
+            wins: existingWinner.wins + 1,
+            time: formatSeconds(elapsedTime),
+          })
+        );
+      } else {
+        await dispatch(
+          updateWinner({ ...existingWinner, wins: existingWinner.wins + 1 })
+        );
+      }
+    } else {
+      const winnerObj: Winner = {
+        id: firstFinishedDrive.payload.id as string,
+        wins: 1,
+        time: formatSeconds(elapsedTime),
+      };
+      await dispatch(createWinner(winnerObj));
+    }
 
     await Promise.all(drivePromises);
   };
