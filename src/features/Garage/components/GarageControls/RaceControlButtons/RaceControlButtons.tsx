@@ -7,6 +7,7 @@ import { selectWinners } from 'app/winners/winnersSlice.ts';
 import { fetchWinners } from 'app/winners/winnersThunks.ts';
 import StartRace from './Functions/StartRace/StartRace.ts';
 import resetRace from './Functions/ResetRace/ResetRace.ts';
+import GenerateCars from './Functions/GenerateCars/GenerateCars.ts';
 
 function RaceControlButtons() {
   const dispatch = useAppDispatch();
@@ -37,7 +38,12 @@ function RaceControlButtons() {
       >
         Reset race
       </Button>
-      <Button variant="contained">Generate cars</Button>
+      <Button
+        variant="contained"
+        onClick={() => GenerateCars(dispatch, currentPage)}
+      >
+        Generate cars
+      </Button>
     </Grid>
   );
 }

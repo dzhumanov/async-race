@@ -1,4 +1,8 @@
-import { selectCurrentPage, setCurrentPage } from '@garage/garageSlice';
+import {
+  selectCars,
+  selectCurrentPage,
+  setCurrentPage,
+} from '@garage/garageSlice';
 import { fetchSomeCars } from '@garage/garageThunks';
 import { useAppDispatch } from '@hooks';
 import Pagination from '@mui/material/Pagination';
@@ -8,6 +12,7 @@ import { useSelector } from 'react-redux';
 function PaginationComponent() {
   const dispatch = useAppDispatch();
   const currentPage = useSelector(selectCurrentPage);
+  const cars = useSelector(selectCars);
 
   useEffect(() => {
     dispatch(fetchSomeCars({ page: currentPage }));
@@ -17,10 +22,14 @@ function PaginationComponent() {
     dispatch(setCurrentPage(value));
   };
 
+  const countPages = () => {
+    return Math.round(cars.length / 7);
+  };
+
   return (
     <div>
       <Pagination
-        count={10}
+        count={countPages()}
         page={currentPage}
         onChange={handleChange}
         size="large"

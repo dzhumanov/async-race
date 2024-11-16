@@ -3,13 +3,24 @@
   height: auto;
   background-color: black;
   display: flex;
+  width: 100%;
   align-items: center;
 
   & .name {
     color: white;
+    white-space: nowrap;
+    overflow: hidden; 
     text-transform: uppercase;
-    margin-left: auto;
-    margin-right: 30px;
+    text-overflow: ellipsis;
+    margin-left: 100px;
+  }
+
+  & .speed {
+    color: white;
+    text-transform: uppercase;
+    margin-left: 100px;
+    text-align: end;
+    margin-right: 20px;
   }
 }
 

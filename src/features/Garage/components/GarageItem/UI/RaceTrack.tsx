@@ -82,7 +82,7 @@ function RaceTrack({
   }, [isStarted, velocity]);
 
   return (
-    <>
+    <Box sx={{ width: '100%', height: '100%' }}>
       <Box
         ref={carRef}
         component="div"
@@ -92,7 +92,7 @@ function RaceTrack({
             ? `translateX(${trackWidth - carWidth}px)`
             : `translateX(${currentPosition}px)`,
           transition: isStarted
-            ? `transform ${transitionDuration}s linear`
+            ? `transform ${transitionDuration}s ease-in-out`
             : 'none',
         }}
       >
@@ -103,12 +103,14 @@ function RaceTrack({
           onMouseLeave={handlePopoverClose}
         />
       </Box>
-      <Typography variant="h3" className={classes.name}>
-        {name}
-      </Typography>
-      <Typography variant="body1" className={classes.name}>
-        Speed: {velocity}km/h
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="h3" className={classes.name}>
+          {name}
+        </Typography>
+        <Typography variant="body1" className={classes.speed}>
+          Speed: {velocity}km/h
+        </Typography>
+      </Box>
       <Popover
         id="mouse-over-popover"
         sx={{ pointerEvents: 'none' }}
@@ -127,7 +129,7 @@ function RaceTrack({
       >
         <Typography sx={{ p: 1 }}>{name}&apos;s engine is broken.</Typography>
       </Popover>
-    </>
+    </Box>
   );
 }
 
