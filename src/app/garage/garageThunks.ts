@@ -17,7 +17,25 @@ import {
 export const fetchCars = createAsyncThunk<Car[]>(
   'garage/fetchAll',
   async () => {
-    const response = await axiosApi.get<Car[]>('/garage');
+    const response = await axiosApi.get<Car[]>(`/garage`);
+    const mutatedResponse = response.data.map((car) => {
+      return {
+        ...car,
+        velocity: 0,
+        status: false,
+        engine: true,
+      };
+    });
+    return mutatedResponse;
+  }
+);
+
+export const fetchSomeCars = createAsyncThunk<Car[], { page: number }>(
+  'garage/fetchSome',
+  async ({ page }) => {
+    const response = await axiosApi.get<Car[]>(
+      `/garage/?_page=${page}&_limit=7`
+    );
     const mutatedResponse = response.data.map((car) => {
       return {
         ...car,

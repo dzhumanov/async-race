@@ -2,7 +2,7 @@ import { Button, Grid2 as Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useAppDispatch } from '@hooks';
-import { selectCars } from '@garage/garageSlice.ts';
+import { selectCurrentPage, selectDisplayedCars } from '@garage/garageSlice.ts';
 import { selectWinners } from 'app/winners/winnersSlice.ts';
 import { fetchWinners } from 'app/winners/winnersThunks.ts';
 import StartRace from './Functions/StartRace/StartRace.ts';
@@ -10,8 +10,9 @@ import resetRace from './Functions/ResetRace/ResetRace.ts';
 
 function RaceControlButtons() {
   const dispatch = useAppDispatch();
-  const cars = useSelector(selectCars);
+  const cars = useSelector(selectDisplayedCars);
   const winners = useSelector(selectWinners);
+  const currentPage = useSelector(selectCurrentPage);
 
   useEffect(() => {
     dispatch(fetchWinners());
@@ -31,7 +32,7 @@ function RaceControlButtons() {
         variant="contained"
         color="error"
         onClick={async () => {
-          await resetRace(cars, dispatch);
+          await resetRace(cars, dispatch, currentPage);
         }}
       >
         Reset race

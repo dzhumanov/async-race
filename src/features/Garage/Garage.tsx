@@ -2,13 +2,14 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Box } from '@mui/material';
 import GarageItem from './components/GarageItem/GarageItem.tsx';
-import { selectCars } from '../../app/garage/garageSlice.ts';
+import { selectDisplayedCars } from '../../app/garage/garageSlice.ts';
 import { useAppDispatch } from '../../app/hooks.ts';
 import { fetchCars } from '../../app/garage/garageThunks.ts';
 import GarageControls from './components/GarageControls/GarageControls.tsx';
+import PaginationComponent from './components/Pagination/PaginationComponent.tsx';
 
 function Garage() {
-  const cars = useSelector(selectCars);
+  const cars = useSelector(selectDisplayedCars);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -33,6 +34,7 @@ function Garage() {
           engine={car.engine}
         />
       ))}
+      <PaginationComponent />
     </Box>
   );
 }

@@ -1,17 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import {
+  resetCarPosition,
+  selectCurrentPage,
+  turnOffEngine,
+  updateCarState,
+} from '@garage/garageSlice.ts';
 import {
   deleteCar,
   driveCar,
-  fetchCars,
+  fetchSomeCars,
   switchEngine,
-} from '../../../../app/garage/garageThunks.ts';
-import { useAppDispatch } from '../../../../app/hooks.ts';
+} from '@garage/garageThunks.ts';
+import { useAppDispatch } from '@hooks';
 import GarageItemUI from './UI/GarageItemUI.tsx';
-import {
-  resetCarPosition,
-  turnOffEngine,
-  updateCarState,
-} from '../../../../app/garage/garageSlice.ts';
 
 interface Props {
   id: string;
@@ -35,6 +37,7 @@ function GarageItem({
   const [transitionDuration, setTransitionDuration] = useState<number>(0);
   const raceTrackRef = useRef<HTMLDivElement>(null);
   let driveController: AbortController | null = null;
+  const currentPage = useSelector(selectCurrentPage);
 
   useEffect(() => {
     if (raceTrackRef.current) {
@@ -70,7 +73,7 @@ function GarageItem({
 
   const handleDelete = async () => {
     await dispatch(deleteCar(id));
-    await dispatch(fetchCars());
+    await dispatch(fetchSomeCars({ page: currentPage }));
   };
 
   const handleSelect = () => {

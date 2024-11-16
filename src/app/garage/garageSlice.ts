@@ -1,15 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Car, CarMutation } from '../../types.ts';
-import { createCar, fetchCars, switchEngine } from './garageThunks.ts';
+import {
+  createCar,
+  fetchCars,
+  fetchSomeCars,
+  switchEngine,
+} from './garageThunks.ts';
 
 export interface GarageState {
   cars: Car[];
+  displayedCars: Car[];
+  currentPage: number;
   updateCar: CarMutation | null;
   loadingStatus: boolean;
 }
 
 export const initialState: GarageState = {
   cars: [],
+  displayedCars: [],
+  currentPage: 1,
   updateCar: null,
   loadingStatus: false,
 };
@@ -18,21 +27,24 @@ export const garageSlice = createSlice({
   name: 'garage',
   initialState,
   reducers: {
+    setCurrentPage: (state, { payload: page }) => {
+      state.currentPage = page;
+    },
     turnOnEngine: (state, { payload: id }) => {
-      const car = state.cars.find((c) => c.id === id);
+      const car = state.displayedCars.find((c) => c.id === id);
       if (car) {
         car.status = true;
         car.engine = true;
       }
     },
     turnOffEngine: (state, { payload: id }) => {
-      const car = state.cars.find((c) => c.id === id);
+      const car = state.displayedCars.find((c) => c.id === id);
       if (car) {
         car.status = false;
       }
     },
     resetCarPosition: (state, { payload: id }) => {
-      const car = state.cars.find((c) => c.id === id);
+      const car = state.displayedCars.find((c) => c.id === id);
       if (car) {
         car.status = false;
         car.velocity = 0;
@@ -40,7 +52,7 @@ export const garageSlice = createSlice({
       }
     },
     brokeEngine: (state, { payload: id }) => {
-      const car = state.cars.find((c) => c.id === id);
+      const car = state.displayedCars.find((c) => c.id === id);
       if (car) {
         car.engine = false;
       }
@@ -63,6 +75,16 @@ export const garageSlice = createSlice({
     builder.addCase(fetchCars.rejected, (state) => {
       state.loadingStatus = false;
     });
+    builder.addCase(fetchSomeCars.pending, (state) => {
+      state.loadingStatus = true;
+    });
+    builder.addCase(fetchSomeCars.fulfilled, (state, { payload: cars }) => {
+      state.loadingStatus = false;
+      state.displayedCars = cars;
+    });
+    builder.addCase(fetchSomeCars.rejected, (state) => {
+      state.loadingStatus = false;
+    });
     builder.addCase(createCar.pending, (state) => {
       state.loadingStatus = true;
     });
@@ -77,7 +99,7 @@ export const garageSlice = createSlice({
     });
     builder.addCase(switchEngine.fulfilled, (state, { payload: response }) => {
       state.loadingStatus = false;
-      const car = state.cars.find((c) => c.id === response.id);
+      const car = state.displayedCars.find((c) => c.id === response.id);
       if (car) {
         car.velocity = response.responseData.velocity;
       }
@@ -88,6 +110,8 @@ export const garageSlice = createSlice({
   },
   selectors: {
     selectCars: (state) => state.cars,
+    selectDisplayedCars: (state) => state.displayedCars,
+    selectCurrentPage: (state) => state.currentPage,
     selectUpdateCar: (state) => state.updateCar,
     selectLoadingStatus: (state) => state.loadingStatus,
   },
@@ -95,6 +119,7 @@ export const garageSlice = createSlice({
 
 export const garageReducer = garageSlice.reducer;
 export const {
+  setCurrentPage,
   turnOnEngine,
   turnOffEngine,
   resetCarPosition,
@@ -102,5 +127,10 @@ export const {
   updateCarState,
   clearUpdateCarState,
 } = garageSlice.actions;
-export const { selectCars, selectUpdateCar, selectLoadingStatus } =
-  garageSlice.selectors;
+export const {
+  selectCars,
+  selectDisplayedCars,
+  selectCurrentPage,
+  selectUpdateCar,
+  selectLoadingStatus,
+} = garageSlice.selectors;

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentPage } from '@garage/garageSlice.ts';
 import { CarMutation } from '../../../../../types.ts';
 import { useAppDispatch } from '../../../../../app/hooks.ts';
+import GarageFormUI from './UI/GarageFormUI.tsx';
 import {
   createCar,
-  fetchCars,
+  fetchSomeCars,
 } from '../../../../../app/garage/garageThunks.ts';
-import GarageFormUI from './UI/GarageFormUI.tsx';
 
 function GarageForm() {
   const [state, setState] = useState<CarMutation>({
@@ -13,6 +15,7 @@ function GarageForm() {
     color: '#ffffffff',
   });
   const dispatch = useAppDispatch();
+  const currentPage = useSelector(selectCurrentPage);
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,7 +36,7 @@ function GarageForm() {
       return;
     }
     await dispatch(createCar(state));
-    await dispatch(fetchCars());
+    await dispatch(fetchSomeCars({ page: currentPage }));
   };
 
   return (

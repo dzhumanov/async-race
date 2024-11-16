@@ -1,9 +1,9 @@
 import { resetCarPosition, turnOffEngine } from '@garage/garageSlice';
-import { fetchCars, switchEngine } from '@garage/garageThunks';
+import { fetchSomeCars, switchEngine } from '@garage/garageThunks';
 import { AppDispatch } from 'app/store';
 import { Car } from 'types';
 
-const resetRace = async (cars: Car[], dispatch: AppDispatch) => {
+const resetRace = async (cars: Car[], dispatch: AppDispatch, page: number) => {
   let driveController: AbortController | null = new AbortController();
 
   if (driveController) {
@@ -15,7 +15,7 @@ const resetRace = async (cars: Car[], dispatch: AppDispatch) => {
     dispatch(turnOffEngine(car.id));
     await dispatch(switchEngine({ id: car.id, status: 'stopped' }));
   });
-  await dispatch(fetchCars());
+  await dispatch(fetchSomeCars({ page }));
 };
 
 export default resetRace;

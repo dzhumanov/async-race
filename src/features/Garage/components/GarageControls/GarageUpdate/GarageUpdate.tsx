@@ -3,11 +3,14 @@ import { useSelector } from 'react-redux';
 import { CarMutation } from '../../../../../types.ts';
 import { useAppDispatch } from '../../../../../app/hooks.ts';
 import {
-  fetchCars,
+  fetchSomeCars,
   updateCar,
 } from '../../../../../app/garage/garageThunks.ts';
 import GarageFormUI from '../GarageForm/UI/GarageFormUI.tsx';
-import { selectUpdateCar } from '../../../../../app/garage/garageSlice.ts';
+import {
+  selectCurrentPage,
+  selectUpdateCar,
+} from '../../../../../app/garage/garageSlice.ts';
 
 const initialState: CarMutation = {
   name: '',
@@ -18,6 +21,7 @@ function GarageUpdate() {
   const [state, setState] = useState<CarMutation>(initialState);
   const dispatch = useAppDispatch();
   const car = useSelector(selectUpdateCar);
+  const currentPage = useSelector(selectCurrentPage);
 
   useEffect(() => {
     if (car) {
@@ -46,7 +50,7 @@ function GarageUpdate() {
       return;
     }
     await dispatch(updateCar(state));
-    await dispatch(fetchCars());
+    await dispatch(fetchSomeCars({ page: currentPage }));
   };
 
   return (
