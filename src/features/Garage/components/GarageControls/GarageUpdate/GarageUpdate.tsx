@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { CarMutation } from '../../../../../types.ts';
-import { useAppDispatch } from '../../../../../app/hooks.ts';
-import {
-  fetchSomeCars,
-  updateCar,
-} from '../../../../../app/garage/garageThunks.ts';
+import createInputChangeHandler from 'utils/InputChangeHandler/InputChangeHandler.ts';
+import { CarMutation } from 'types';
+import { useAppDispatch } from '@hooks';
+import { selectCurrentPage, selectUpdateCar } from '@garage/garageSlice.ts';
+import { fetchSomeCars, updateCar } from '@garage/garageThunks.ts';
 import GarageFormUI from '../GarageForm/UI/GarageFormUI.tsx';
-import {
-  selectCurrentPage,
-  selectUpdateCar,
-} from '../../../../../app/garage/garageSlice.ts';
 
 const initialState: CarMutation = {
   name: '',
@@ -24,19 +19,10 @@ function GarageUpdate() {
   const currentPage = useSelector(selectCurrentPage);
 
   useEffect(() => {
-    if (car) {
-      setState(car);
-    } else {
-      setState(initialState);
-    }
+    setState(car || initialState);
   }, [car]);
 
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setState((prevState) => {
-      return { ...prevState, [name]: value };
-    });
-  };
+  const inputChangeHandler = createInputChangeHandler(setState);
 
   const inputColorHandler = (color: string) => {
     setState((prev) => ({ ...prev, color }));

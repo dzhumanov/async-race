@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentPage } from '@garage/garageSlice.ts';
+import createInputChangeHandler from 'utils/InputChangeHandler/InputChangeHandler.ts';
 import { CarMutation } from '../../../../../types.ts';
 import { useAppDispatch } from '../../../../../app/hooks.ts';
 import GarageFormUI from './UI/GarageFormUI.tsx';
@@ -17,12 +18,7 @@ function GarageForm() {
   const dispatch = useAppDispatch();
   const currentPage = useSelector(selectCurrentPage);
 
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setState((prevState) => {
-      return { ...prevState, [name]: value };
-    });
-  };
+  const inputChangeHandler = createInputChangeHandler(setState);
 
   const inputColorHandler = (color: string) => {
     setState((prev) => ({ ...prev, color }));

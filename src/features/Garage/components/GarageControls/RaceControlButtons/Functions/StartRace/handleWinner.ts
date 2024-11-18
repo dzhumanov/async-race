@@ -1,6 +1,7 @@
 import { DriveResult, Winner } from 'types';
 import { createWinner, updateWinner } from 'app/winners/winnersThunks.ts';
 import { AppDispatch } from 'app/store.ts';
+import { openModal, setWinner } from 'app/modal/modalSlice.ts';
 import formatSeconds from '../FormatSeconds.ts';
 
 const handleWinner = async (
@@ -37,6 +38,8 @@ const handleWinner = async (
     };
     await dispatch(createWinner(winnerObj));
   }
+  dispatch(setWinner({ ...existingWinner, time: formatSeconds(elapsedTime) }));
+  dispatch(openModal());
 };
 
 export default handleWinner;

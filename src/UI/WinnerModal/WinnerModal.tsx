@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import { closeModal, selectIsOpen, selectWinner } from 'app/modal/modalSlice';
 import { useAppDispatch } from '@hooks';
+import { fetchOneCar } from '@garage/garageThunks';
+import { useEffect, useState } from 'react';
+import { CarMutation } from 'types';
 
 const style = {
   position: 'absolute',
@@ -23,6 +26,20 @@ export default function WinnerModal() {
   const open = useSelector(selectIsOpen);
   const winner = useSelector(selectWinner);
   const dispatch = useAppDispatch();
+  const [winnerInfo, setWinnerInfo] = useState<CarMutation>({
+    name: '',
+    color: '',
+    id: '',
+  });
+
+  useEffect(() => {
+    const fetchCarData = async () => {
+      const result = await dispatch(fetchOneCar(winner.id));
+      setWinnerInfo(result.payload as CarMutation);
+    };
+
+    fetchCarData();
+  }, [dispatch, winner.id]);
 
   const handleClose = () => {
     dispatch(closeModal());
@@ -33,8 +50,6 @@ export default function WinnerModal() {
   return (
     <div>
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
         open={open}
         onClose={handleClose}
         closeAfterTransition
@@ -48,12 +63,22 @@ export default function WinnerModal() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              The winner is:
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              {winner.id}
-            </Typography>
+            <Box component="div">
+              <Typography
+                id="transition-modal-title"
+                variant="h6"
+                component="h2"
+              >
+                The winner is:
+              </Typography>
+              <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                {winnerInfo.name}
+              </Typography>
+            </Box>
+            <Box component="div">
+              <Typography variant="h6">Time: </Typography>
+              <Typography>{winner.time} s.</Typography>
+            </Box>
           </Box>
         </Fade>
       </Modal>

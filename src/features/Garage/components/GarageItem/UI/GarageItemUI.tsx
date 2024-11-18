@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { Grid2 as Grid } from '@mui/material';
 import classes from './GarageItem.module.css';
-import RaceTrack from './RaceTrack.tsx';
+import RaceTrack from '../RaceTrack/RaceTrack.tsx';
 import RaceButtons from '../RaceButtons/RaceButtons.tsx';
 import CarControlButtons from '../CarControlButtons/CarControlButtons.tsx';
 

@@ -17,8 +17,10 @@ function Garage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCars());
-  }, [dispatch]);
+    if (!allCars) {
+      dispatch(fetchCars());
+    }
+  }, [dispatch, allCars]);
 
   useEffect(() => {
     console.log(cars);

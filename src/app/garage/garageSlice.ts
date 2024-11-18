@@ -12,6 +12,7 @@ export interface GarageState {
   displayedCars: Car[];
   currentPage: number;
   updateCar: CarMutation | null;
+  raceStatus: boolean;
   loadingStatus: boolean;
 }
 
@@ -20,6 +21,7 @@ export const initialState: GarageState = {
   displayedCars: [],
   currentPage: 1,
   updateCar: null,
+  raceStatus: false,
   loadingStatus: false,
 };
 
@@ -62,6 +64,12 @@ export const garageSlice = createSlice({
     },
     clearUpdateCarState: (state) => {
       state.updateCar = null;
+    },
+    startRace: (state) => {
+      state.raceStatus = true;
+    },
+    stopRace: (state) => {
+      state.raceStatus = false;
     },
   },
   extraReducers: (builder) => {
@@ -113,6 +121,7 @@ export const garageSlice = createSlice({
     selectDisplayedCars: (state) => state.displayedCars,
     selectCurrentPage: (state) => state.currentPage,
     selectUpdateCar: (state) => state.updateCar,
+    selectRaceStatus: (state) => state.raceStatus,
     selectLoadingStatus: (state) => state.loadingStatus,
   },
 });
@@ -126,11 +135,14 @@ export const {
   brokeEngine,
   updateCarState,
   clearUpdateCarState,
+  startRace,
+  stopRace,
 } = garageSlice.actions;
 export const {
   selectCars,
   selectDisplayedCars,
   selectCurrentPage,
   selectUpdateCar,
+  selectRaceStatus,
   selectLoadingStatus,
 } = garageSlice.selectors;

@@ -55,4 +55,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['src/app/**/*.ts', 'src/app/**/*.tsx'],
+      rules: {
+        'max-lines-per-function': 'off',
+      },
+    },
+  ],
 };

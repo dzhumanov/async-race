@@ -5,36 +5,4 @@
   display: flex;
   width: 100%;
   align-items: center;
-
-  & .name {
-    color: white;
-    white-space: nowrap;
-    overflow: hidden; 
-    text-transform: uppercase;
-    text-overflow: ellipsis;
-    margin-left: 100px;
-  }
-
-  & .speed {
-    color: white;
-    text-transform: uppercase;
-    margin-left: 100px;
-    text-align: end;
-    margin-right: 20px;
-  }
-}
-
-.car {
-  position: absolute;
-  left: 30px;
-}
-
-.popup {
-  width: max-content;
-  padding: 12px 16px;
-  margin: 8px;
-  border-radius: 8px;
-  border: 1px solid grey;
-  background-color: white;
-  box-shadow: 0px 4px 8px rgb(0 0 0 / 0.7);
 }

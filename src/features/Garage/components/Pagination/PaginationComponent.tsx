@@ -1,6 +1,7 @@
 import {
   selectCars,
   selectCurrentPage,
+  selectDisplayedCars,
   setCurrentPage,
 } from '@garage/garageSlice';
 import { fetchSomeCars } from '@garage/garageThunks';
@@ -13,10 +14,13 @@ function PaginationComponent() {
   const dispatch = useAppDispatch();
   const currentPage = useSelector(selectCurrentPage);
   const cars = useSelector(selectCars);
+  const displayedCars = useSelector(selectDisplayedCars);
 
   useEffect(() => {
-    dispatch(fetchSomeCars({ page: currentPage }));
-  }, [dispatch, currentPage]);
+    if (displayedCars.length === 0) {
+      dispatch(fetchSomeCars({ page: currentPage }));
+    }
+  }, [dispatch, currentPage, displayedCars]);
 
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     dispatch(setCurrentPage(value));

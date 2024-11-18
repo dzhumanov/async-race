@@ -30,6 +30,14 @@ export const fetchCars = createAsyncThunk<Car[]>(
   }
 );
 
+export const fetchOneCar = createAsyncThunk<CarMutation, string>(
+  'garage/fetchOne',
+  async (id) => {
+    const response = await axiosApi.get<CarMutation>(`/garage/${id}`);
+    return response.data;
+  }
+);
+
 export const fetchSomeCars = createAsyncThunk<Car[], { page: number }>(
   'garage/fetchSome',
   async ({ page }) => {
