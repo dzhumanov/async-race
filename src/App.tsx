@@ -1,5 +1,6 @@
 import { Container, CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
+import WinnerModal from 'UI/WinnerModal/WinnerModal.tsx';
 import Garage from './features/Garage/Garage.tsx';
 import Toolbar from './UI/Toolbar/Toolbar.tsx';
 import Winners from './features/Winners/components/Winners.tsx';
@@ -19,6 +20,8 @@ function App() {
           </Routes>
         </Container>
       </main>
+
+      <WinnerModal />
     </>
   );
 }
