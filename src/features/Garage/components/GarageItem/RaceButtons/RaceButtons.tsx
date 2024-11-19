@@ -17,7 +17,8 @@ function RaceButtons({
     <>
       <Button
         variant="contained"
-        sx={{ width: '100%' }}
+        color="error"
+        sx={{ width: '100%', mb: 1 }}
         onClick={turnOnCarEngine}
         disabled={status}
       >
@@ -25,6 +26,7 @@ function RaceButtons({
       </Button>
       <Button
         variant="outlined"
+        color="error"
         sx={{ width: '100%' }}
         onClick={turnOffEngine}
         disabled={!status && engineStatus}

@@ -85,7 +85,7 @@ function RaceTrack({
   }, [isStarted, velocity]);
 
   return (
-    <Box sx={{ width: '100%', height: '100%' }}>
+    <Box sx={{ width: '100%', height: '100%' }} className={classes.raceTrack}>
       <Box
         ref={carRef}
         component="div"
@@ -108,7 +108,7 @@ function RaceTrack({
         />
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h3" className={classes.name}>
+        <Typography variant="body1" className={classes.name}>
           {name}
         </Typography>
         <Typography variant="body1" className={classes.speed}>

@@ -30,11 +30,11 @@ export const winnersSlice = createSlice({
   },
   selectors: {
     selectWinners: (state) => state.winners,
+
     selectWinnersLoadingStatus: (state) => state.loadingStatus,
   },
 });
 
 export const winnersReducer = winnersSlice.reducer;
-// export const { updateWinners } = winnersSlice.actions;
 export const { selectWinners, selectWinnersLoadingStatus } =
   winnersSlice.selectors;

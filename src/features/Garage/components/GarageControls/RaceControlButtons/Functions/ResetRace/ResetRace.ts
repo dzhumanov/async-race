@@ -1,4 +1,4 @@
-import { resetCarPosition, turnOffEngine } from '@garage/garageSlice';
+import { resetCarPosition, stopRace, turnOffEngine } from '@garage/garageSlice';
 import { fetchSomeCars, switchEngine } from '@garage/garageThunks';
 import { AppDispatch } from 'app/store';
 import { Car } from 'types';
@@ -15,6 +15,7 @@ const resetRace = async (cars: Car[], dispatch: AppDispatch, page: number) => {
     dispatch(turnOffEngine(car.id));
     await dispatch(switchEngine({ id: car.id, status: 'stopped' }));
   });
+  dispatch(stopRace());
   await dispatch(fetchSomeCars({ page }));
 };
 

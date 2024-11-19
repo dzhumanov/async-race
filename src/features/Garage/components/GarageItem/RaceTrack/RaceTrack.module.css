@@ -1,5 +1,10 @@
+.raceTrack {
+  background-image: url('../../../../../assets/images/road.png');
+  background-size: contain;
+}
+
 .name {
-  color: white;
+  color: rgb(255, 255, 255);
   white-space: nowrap;
   overflow: hidden;
   text-transform: uppercase;

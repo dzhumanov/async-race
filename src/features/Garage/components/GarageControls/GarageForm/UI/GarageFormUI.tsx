@@ -30,13 +30,61 @@ function GarageFormUI({
             onChange={onChange}
             name="name"
             required
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'white',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#EE0000',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#EE0000',
+                },
+              },
+              '& .MuiFormLabel-root': {
+                color: 'white',
+              },
+              '& .MuiFormLabel-root.Mui-focused': {
+                color: '#EE0000',
+              },
+              '&:hover .MuiFormLabel-root': {
+                color: '#EE0000',
+              },
+            }}
+          />
+        </Grid>
+        <Grid size={3}>
+          <MuiColorInput
+            format="hex8"
+            value={color}
+            onChange={onColorChange}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'white',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#EE0000',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#EE0000',
+                },
+              },
+              '& .MuiFormLabel-root': {
+                color: 'white',
+              },
+              '& .MuiFormLabel-root.Mui-focused': {
+                color: '#EE0000',
+              },
+              '&:hover .MuiFormLabel-root': {
+                color: '#EE0000',
+              },
+            }}
           />
         </Grid>
         <Grid size={4}>
-          <MuiColorInput format="hex8" value={color} onChange={onColorChange} />
-        </Grid>
-        <Grid size={3}>
-          <Button variant="outlined" type="submit">
+          <Button variant="outlined" color="error" type="submit">
             {status === 'create' ? 'Create' : 'Update'}
           </Button>
         </Grid>

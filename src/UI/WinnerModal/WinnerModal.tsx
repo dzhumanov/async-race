@@ -4,11 +4,13 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
-import { closeModal, selectIsOpen, selectWinner } from 'app/modal/modalSlice';
+import {
+  closeModal,
+  selectIsOpen,
+  selectWinner,
+  selectWinnerInfo,
+} from 'app/modal/modalSlice';
 import { useAppDispatch } from '@hooks';
-import { fetchOneCar } from '@garage/garageThunks';
-import { useEffect, useState } from 'react';
-import { CarMutation } from 'types';
 
 const style = {
   position: 'absolute',
@@ -26,20 +28,7 @@ export default function WinnerModal() {
   const open = useSelector(selectIsOpen);
   const winner = useSelector(selectWinner);
   const dispatch = useAppDispatch();
-  const [winnerInfo, setWinnerInfo] = useState<CarMutation>({
-    name: '',
-    color: '',
-    id: '',
-  });
-
-  useEffect(() => {
-    const fetchCarData = async () => {
-      const result = await dispatch(fetchOneCar(winner.id));
-      setWinnerInfo(result.payload as CarMutation);
-    };
-
-    fetchCarData();
-  }, [dispatch, winner.id]);
+  const winnerInfo = useSelector(selectWinnerInfo);
 
   const handleClose = () => {
     dispatch(closeModal());
@@ -72,7 +61,7 @@ export default function WinnerModal() {
                 The winner is:
               </Typography>
               <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                {winnerInfo.name}
+                {winnerInfo?.name}
               </Typography>
             </Box>
             <Box component="div">

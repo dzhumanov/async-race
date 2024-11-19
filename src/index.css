@@ -1,0 +1,18 @@
+#root {
+  background-color: #26252a;
+  min-height: 100vh;
+}
+
+@font-face {
+  font-family: 'Formula';
+  src: url('/src/assets/fonts/static/Formula1-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Formula';
+  src: url('/src/assets/fonts/static/Formula1-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}

@@ -6,13 +6,13 @@ import GarageUpdate from './GarageUpdate/GarageUpdate.tsx';
 function GarageControls() {
   return (
     <Grid container>
-      <Grid size={5}>
+      <Grid size={{ xs: 12, lg: 5 }}>
         <GarageForm />
       </Grid>
-      <Grid size={5}>
+      <Grid size={{ xs: 12, lg: 5 }}>
         <GarageUpdate />
       </Grid>
-      <Grid size={2}>
+      <Grid size={{ xs: 12, lg: 2 }} sx={{ mt: { xs: 2 } }}>
         <RaceControlButtons />
       </Grid>
     </Grid>
