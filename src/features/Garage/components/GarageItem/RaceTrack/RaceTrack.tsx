@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import Popover from '@mui/material/Popover';
 import { Box, Typography } from '@mui/material';
-import { selectRaceStatus } from '@garage/garageSlice.ts';
-import { useSelector } from 'react-redux';
 import classes from './RaceTrack.module.css';
 import Car from '../../../../../UI/Icons/Car/Car.tsx';
 import Warning from '../../../../../UI/Icons/Warning/Warning.tsx';
@@ -31,7 +29,6 @@ function RaceTrack({
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [carWidth, setCarWidth] = useState<number>(0);
   const carRef = useRef<HTMLDivElement>(null);
-  const raceStatus = useSelector(selectRaceStatus);
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -66,8 +63,6 @@ function RaceTrack({
   useEffect(() => {
     if (isStarted) {
       const interval = setInterval(() => {
-        setCurrentPosition((prevPosition) => prevPosition + velocity);
-
         if (carRef.current) {
           const { transform } = getComputedStyle(carRef.current);
           const match = transform.match(/matrix.*\((.+)\)/);
@@ -77,7 +72,7 @@ function RaceTrack({
             setCurrentPosition(xPosition);
           }
         }
-      }, 100);
+      }, 10);
 
       return () => clearInterval(interval);
     }
@@ -94,10 +89,9 @@ function RaceTrack({
           transform: isStarted
             ? `translateX(${trackWidth - carWidth}px)`
             : `translateX(${currentPosition}px)`,
-          transition:
-            isStarted && raceStatus
-              ? `transform ${transitionDuration}s ease-in-out`
-              : 'none',
+          transition: isStarted
+            ? `transform ${transitionDuration}s ease-in-out`
+            : 'none',
         }}
       >
         <Car color={carColor} />
