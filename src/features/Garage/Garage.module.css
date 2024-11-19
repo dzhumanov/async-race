@@ -1,0 +1,24 @@
+.garage {
+  position: relative;
+}
+
+.garage::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 90px;
+  display: block;
+  width: 30px;
+  height: 100%;
+  background-image: linear-gradient(
+    45deg,
+    #fff 25%,
+    transparent 25%,
+    transparent 50%,
+    #fff 50%,
+    #fff 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 10px 10px; /* Размер клеток шахматного порядка */
+}

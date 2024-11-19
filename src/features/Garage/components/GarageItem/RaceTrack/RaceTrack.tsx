@@ -53,7 +53,7 @@ function RaceTrack({
 
   useEffect(() => {
     if (carRef.current) {
-      setCarWidth(carRef.current!.offsetHeight);
+      setCarWidth(carRef.current!.offsetHeight + 10);
     }
   }, [carRef]);
 

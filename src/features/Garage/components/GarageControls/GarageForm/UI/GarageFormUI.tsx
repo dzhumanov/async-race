@@ -21,7 +21,7 @@ function GarageFormUI({
 }: Props): JSX.Element {
   return (
     <form onSubmit={onFormSubmit}>
-      <Grid container spacing={2} alignItems="center" sx={{ width: '500px' }}>
+      <Grid container spacing={2} alignItems="center">
         <Grid size={5}>
           <TextField
             id="name"
