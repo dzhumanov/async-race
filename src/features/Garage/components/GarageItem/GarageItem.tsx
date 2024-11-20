@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
   resetCarPosition,
-  selectCurrentPage,
+  selectGaragePage,
   turnOffEngine,
   updateCarState,
 } from '@garage/garageSlice.ts';
@@ -13,6 +13,7 @@ import {
   switchEngine,
 } from '@garage/garageThunks.ts';
 import { useAppDispatch } from '@hooks';
+import { deleteWinner } from 'app/winners/winnersThunks.ts';
 import GarageItemUI from './UI/GarageItemUI.tsx';
 
 interface Props {
@@ -33,17 +34,11 @@ function GarageItem({
   engine,
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  const [trackWidth, setTrackWidth] = useState<number>(0);
   const [transitionDuration, setTransitionDuration] = useState<number>(0);
   const raceTrackRef = useRef<HTMLDivElement>(null);
   let driveController: AbortController | null = null;
-  const currentPage = useSelector(selectCurrentPage);
-
-  useEffect(() => {
-    if (raceTrackRef.current) {
-      setTrackWidth(raceTrackRef.current.clientWidth);
-    }
-  }, []);
+  const currentPage = useSelector(selectGaragePage);
+  const trackWidth = raceTrackRef?.current?.clientWidth;
 
   useEffect(() => {
     if (velocity > 0) {
@@ -73,6 +68,7 @@ function GarageItem({
 
   const handleDelete = async () => {
     await dispatch(deleteCar(id));
+    await dispatch(deleteWinner(id));
     await dispatch(fetchSomeCars({ page: currentPage }));
   };
 
@@ -92,7 +88,7 @@ function GarageItem({
       velocity={velocity}
       status={status}
       engine={engine}
-      trackWidth={trackWidth}
+      trackWidth={trackWidth || 0}
       transitionDuration={transitionDuration}
     />
   );

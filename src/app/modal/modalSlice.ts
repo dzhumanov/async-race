@@ -1,6 +1,6 @@
-import { fetchOneCar } from '@garage/garageThunks';
 import { createSlice } from '@reduxjs/toolkit';
 import { CarMutation } from 'types';
+import fetchModalCar from './modalThunks.ts';
 
 export interface ModalState {
   isOpen: boolean;
@@ -33,7 +33,7 @@ export const modalSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchOneCar.fulfilled, (state, { payload: car }) => {
+    builder.addCase(fetchModalCar.fulfilled, (state, { payload: car }) => {
       state.winnerInfo = car;
     });
   },

@@ -29,7 +29,7 @@ export const garageSlice = createSlice({
   name: 'garage',
   initialState,
   reducers: {
-    setCurrentPage: (state, { payload: page }) => {
+    setGaragePage: (state, { payload: page }) => {
       state.currentPage = page;
     },
     turnOnEngine: (state, { payload: id }) => {
@@ -119,7 +119,7 @@ export const garageSlice = createSlice({
   selectors: {
     selectCars: (state) => state.cars,
     selectDisplayedCars: (state) => state.displayedCars,
-    selectCurrentPage: (state) => state.currentPage,
+    selectGaragePage: (state) => state.currentPage,
     selectUpdateCar: (state) => state.updateCar,
     selectRaceStatus: (state) => state.raceStatus,
     selectLoadingStatus: (state) => state.loadingStatus,
@@ -128,7 +128,7 @@ export const garageSlice = createSlice({
 
 export const garageReducer = garageSlice.reducer;
 export const {
-  setCurrentPage,
+  setGaragePage,
   turnOnEngine,
   turnOffEngine,
   resetCarPosition,
@@ -141,7 +141,7 @@ export const {
 export const {
   selectCars,
   selectDisplayedCars,
-  selectCurrentPage,
+  selectGaragePage,
   selectUpdateCar,
   selectRaceStatus,
   selectLoadingStatus,

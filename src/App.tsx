@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import WinnerModal from 'UI/WinnerModal/WinnerModal.tsx';
 import Garage from './features/Garage/Garage.tsx';
 import Toolbar from './UI/Toolbar/Toolbar.tsx';
-import Winners from './features/Winners/components/Winners.tsx';
+import Winners from './features/Winners/Winners.tsx';
 import Break from './assets/images/break.png';
 
 function App() {

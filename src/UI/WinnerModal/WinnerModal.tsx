@@ -49,6 +49,7 @@ export default function WinnerModal() {
             timeout: 500,
           },
         }}
+        sx={{ color: 'black' }}
       >
         <Fade in={open}>
           <Box sx={style}>

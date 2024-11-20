@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCurrentPage } from '@garage/garageSlice.ts';
 import createInputChangeHandler from 'utils/InputChangeHandler/InputChangeHandler.ts';
+import { selectGaragePage } from '@garage/garageSlice.ts';
 import { CarMutation } from '../../../../../types.ts';
 import { useAppDispatch } from '../../../../../app/hooks.ts';
 import GarageFormUI from './UI/GarageFormUI.tsx';
@@ -16,7 +16,7 @@ function GarageForm() {
     color: '#ffffffff',
   });
   const dispatch = useAppDispatch();
-  const currentPage = useSelector(selectCurrentPage);
+  const currentPage = useSelector(selectGaragePage);
 
   const inputChangeHandler = createInputChangeHandler(setState);
 

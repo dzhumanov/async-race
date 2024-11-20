@@ -7,8 +7,6 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
     'airbnb/hooks',
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -43,7 +41,7 @@ module.exports = {
         ignorePropertyModificationsFor: ['state'],
       },
     ],
-    // 'max-lines-per-function': ['error', { max: 40 }],
+    'max-lines-per-function': ['error', 40],
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'import/no-extraneous-dependencies': [
       'error',
@@ -57,7 +55,12 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/app/**/*.ts', 'src/app/**/*.tsx'],
+      files: [
+        'src/app/**/*.ts',
+        'src/app/**/*.tsx',
+        'src/features/**/*.tsx',
+        'src/UI/**/*.tsx',
+      ],
       rules: {
         'max-lines-per-function': 'off',
       },

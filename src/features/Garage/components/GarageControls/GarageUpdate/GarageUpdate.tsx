@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import createInputChangeHandler from 'utils/InputChangeHandler/InputChangeHandler.ts';
 import { CarMutation } from 'types';
 import { useAppDispatch } from '@hooks';
-import { selectCurrentPage, selectUpdateCar } from '@garage/garageSlice.ts';
+import { selectGaragePage, selectUpdateCar } from '@garage/garageSlice.ts';
 import { fetchSomeCars, updateCar } from '@garage/garageThunks.ts';
 import GarageFormUI from '../GarageForm/UI/GarageFormUI.tsx';
 
@@ -16,7 +16,7 @@ function GarageUpdate() {
   const [state, setState] = useState<CarMutation>(initialState);
   const dispatch = useAppDispatch();
   const car = useSelector(selectUpdateCar);
-  const currentPage = useSelector(selectCurrentPage);
+  const currentPage = useSelector(selectGaragePage);
 
   useEffect(() => {
     setState(car || initialState);

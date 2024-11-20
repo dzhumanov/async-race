@@ -30,6 +30,12 @@ function RaceTrack({
   const [carWidth, setCarWidth] = useState<number>(0);
   const carRef = useRef<HTMLDivElement>(null);
 
+  // const isStarted = status;
+
+  // if (isStarted !== status) {
+  //   console.log(isStarted, status);
+  // }
+
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -41,11 +47,7 @@ function RaceTrack({
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    if (status) {
-      setIsStarted(true);
-    } else {
-      setIsStarted(false);
-    }
+    setIsStarted(status);
   }, [status]);
 
   useEffect(() => {
@@ -90,7 +92,7 @@ function RaceTrack({
             ? `translateX(${trackWidth - carWidth}px)`
             : `translateX(${currentPosition}px)`,
           transition: isStarted
-            ? `transform ${transitionDuration}s ease-in-out`
+            ? `transform ${transitionDuration}s linear`
             : 'none',
         }}
       >

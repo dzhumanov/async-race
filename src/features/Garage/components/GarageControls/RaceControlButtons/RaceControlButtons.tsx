@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useAppDispatch } from '@hooks';
 import {
-  selectCurrentPage,
   selectDisplayedCars,
+  selectGaragePage,
   selectRaceStatus,
 } from '@garage/garageSlice.ts';
 import { selectWinners } from 'app/winners/winnersSlice.ts';
@@ -17,7 +17,7 @@ function RaceControlButtons() {
   const dispatch = useAppDispatch();
   const cars = useSelector(selectDisplayedCars);
   const winners = useSelector(selectWinners);
-  const currentPage = useSelector(selectCurrentPage);
+  const currentPage = useSelector(selectGaragePage);
   const raceStatus = useSelector(selectRaceStatus);
 
   useEffect(() => {

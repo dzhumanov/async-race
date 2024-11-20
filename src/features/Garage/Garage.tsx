@@ -9,8 +9,8 @@ import {
 import { useAppDispatch } from '../../app/hooks.ts';
 import { fetchCars } from '../../app/garage/garageThunks.ts';
 import GarageControls from './components/GarageControls/GarageControls.tsx';
-import PaginationComponent from './components/Pagination/PaginationComponent.tsx';
 import classes from './Garage.module.css';
+import GaragePagination from './components/Pagination/GaragePagination.tsx';
 
 function Garage() {
   const cars = useSelector(selectDisplayedCars);
@@ -44,7 +44,7 @@ function Garage() {
           />
         ))}
       </Box>
-      <PaginationComponent />
+      <GaragePagination />
     </Box>
   );
 }

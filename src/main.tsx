@@ -8,10 +8,6 @@ import theme from 'theme.ts';
 import App from './App.tsx';
 import { store } from './app/store.ts';
 
-const portalDiv = document.createElement('div');
-portalDiv.id = 'portal-root';
-document.body.appendChild(portalDiv);
-
 createRoot(document.getElementById('root')!).render(
   // <StrictMode>
   <Provider store={store}>
