@@ -10,11 +10,8 @@ My project was to create a drag racing-themed SPA. The application allows users 
 their garage (create, delete, and edit cars). One of the main features is the race mode, where cars
 compete against each other for first place.
 
-<<<<<<< HEAD
 ## ⚙️ Installation
 
-
-
 ## Checklist 400/400 pts
 
 ## 🚀 UI Deployment
@@ -25,18 +22,6 @@ compete against each other for first place.
 
 - [x] **Commit guidelines compliance:** Ensure that all commits follow the specified commit guidelines, thereby promoting a clear and consistent commit history. This includes using meaningful commit messages that accurately describe the changes made.
 
-=======
-## Checklist 400/400 pts
-
-## 🚀 UI Deployment
-
-- [x] **Deployment Platform:** Successfully deploy the UI on one of the following platforms: GitHub Pages, Netlify, Vercel, Cloudflare Pages, or a similar service.
-
-## ✅ Requirements to Commits and Repository
-
-- [x] **Commit guidelines compliance:** Ensure that all commits follow the specified commit guidelines, thereby promoting a clear and consistent commit history. This includes using meaningful commit messages that accurately describe the changes made.
-
->>>>>>> 58fe95d381f71097c03d58e088ad7505368454af
 - [x] **Checklist included in README.md:** Include the project's checklist in the README.md file. Mark all implemented features to provide a clear overview of the project's completion status.
 
 - [x] **Score calculation:** Use this checklist to calculate your score. Check all implemented features, then calculate your score and put it at the top of the `README.md`.
