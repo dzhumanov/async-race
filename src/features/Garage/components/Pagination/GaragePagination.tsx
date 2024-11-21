@@ -37,7 +37,7 @@ function GaragePagination() {
   };
 
   const countPages = () => {
-    return Math.round(cars.length / 7);
+    return Math.ceil(cars.length / 7);
   };
 
   return (

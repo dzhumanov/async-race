@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../../../../app/hooks.ts';
 import GarageFormUI from './UI/GarageFormUI.tsx';
 import {
   createCar,
+  fetchCars,
   fetchSomeCars,
 } from '../../../../../app/garage/garageThunks.ts';
 
@@ -32,6 +33,7 @@ function GarageForm() {
       return;
     }
     await dispatch(createCar(state));
+    await dispatch(fetchCars());
     await dispatch(fetchSomeCars({ page: currentPage }));
   };
 

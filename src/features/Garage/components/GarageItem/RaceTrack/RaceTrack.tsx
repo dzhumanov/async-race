@@ -30,12 +30,6 @@ function RaceTrack({
   const [carWidth, setCarWidth] = useState<number>(0);
   const carRef = useRef<HTMLDivElement>(null);
 
-  // const isStarted = status;
-
-  // if (isStarted !== status) {
-  //   console.log(isStarted, status);
-  // }
-
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };

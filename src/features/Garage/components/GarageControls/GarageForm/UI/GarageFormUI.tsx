@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Grid2 as Grid, TextField } from '@mui/material';
 import { MuiColorInput } from 'mui-color-input';
+import { useSelector } from 'react-redux';
+import { selectRaceStatus } from '@garage/garageSlice';
 
 interface Props {
   name: string;
@@ -19,6 +21,7 @@ function GarageFormUI({
   onColorChange,
   status,
 }: Props): JSX.Element {
+  const raceStatus = useSelector(selectRaceStatus);
   return (
     <form onSubmit={onFormSubmit}>
       <Grid container spacing={2} alignItems="center">
@@ -87,7 +90,12 @@ function GarageFormUI({
           />
         </Grid>
         <Grid size={4}>
-          <Button variant="outlined" color="error" type="submit">
+          <Button
+            variant="outlined"
+            color="error"
+            type="submit"
+            disabled={raceStatus}
+          >
             {status === 'create' ? 'Create' : 'Update'}
           </Button>
         </Grid>

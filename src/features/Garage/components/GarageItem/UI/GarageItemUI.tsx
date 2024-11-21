@@ -36,8 +36,14 @@ const GarageItemUI = forwardRef<HTMLDivElement, Props>(function GarageItemUI(
   ref
 ) {
   return (
-    <Grid container sx={{ my: 2 }}>
-      <Grid container id="controlPanel" size={2} spacing={2}>
+    <Grid container sx={{ my: 2 }} direction={{ xs: 'column', lg: 'row' }}>
+      <Grid
+        container
+        id="controlPanel"
+        size={{ xs: 10, lg: 2 }}
+        sx={{ mb: { xs: 2, lg: 0 } }}
+        spacing={2}
+      >
         <Grid size={5}>
           <CarControlButtons
             handleDelete={handleDelete}
@@ -53,7 +59,12 @@ const GarageItemUI = forwardRef<HTMLDivElement, Props>(function GarageItemUI(
           />
         </Grid>
       </Grid>
-      <Grid size={10} ref={ref} id="raceTrack" className={classes.raceTrack}>
+      <Grid
+        size={{ xs: 12, lg: 10 }}
+        ref={ref}
+        id="raceTrack"
+        className={classes.raceTrack}
+      >
         <RaceTrack
           status={status}
           velocity={velocity}
