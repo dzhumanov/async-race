@@ -19,6 +19,7 @@ function RaceControlButtons() {
   const winners = useSelector(selectWinners);
   const currentPage = useSelector(selectGaragePage);
   const raceStatus = useSelector(selectRaceStatus);
+
   const driveController: AbortController = new AbortController();
 
   useEffect(() => {

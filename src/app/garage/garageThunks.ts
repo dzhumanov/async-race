@@ -133,7 +133,7 @@ export const driveCar = createAsyncThunk<
     return { id, success: false };
   } catch (e) {
     if (axios.isCancel(e)) {
-      console.log('Cancelled');
+      console.log('Cancelled for car ', id);
     }
     if (e instanceof AxiosError && e.response?.status === 500) {
       dispatch(turnOffEngine(id));
