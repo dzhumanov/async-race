@@ -1,21 +1,26 @@
 import { resetCarPosition, stopRace, turnOffEngine } from '@garage/garageSlice';
-import { fetchSomeCars, switchEngine } from '@garage/garageThunks';
+import { driveCar, fetchSomeCars, switchEngine } from '@garage/garageThunks';
 import { AppDispatch } from 'app/store';
 import { Car } from 'types';
 
-const resetRace = async (cars: Car[], dispatch: AppDispatch, page: number) => {
-  let driveController: AbortController | null = new AbortController();
+const resetRace = async (
+  cars: Car[],
+  dispatch: AppDispatch,
+  page: number,
+  driveController: AbortController
+) => {
+  cars.forEach((car) => {
+    dispatch(driveCar({ id: car.id, signal: driveController.signal }));
+  });
 
-  if (driveController) {
-    driveController.abort();
-    driveController = null;
-  }
+  driveController.abort();
+  dispatch(stopRace());
+
   cars.map(async (car) => {
     dispatch(resetCarPosition(car.id));
     dispatch(turnOffEngine(car.id));
     await dispatch(switchEngine({ id: car.id, status: 'stopped' }));
   });
-  dispatch(stopRace());
   await dispatch(fetchSomeCars({ page }));
 };
 

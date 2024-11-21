@@ -117,8 +117,8 @@ export const switchEngine = createAsyncThunk<
 
 export const driveCar = createAsyncThunk<
   { id: string; success: boolean },
-  string
->('garage/drive', async (id, { dispatch, signal }) => {
+  { id: string; signal: AbortSignal }
+>('garage/drive', async ({ id, signal }, { dispatch }) => {
   try {
     dispatch(turnOnEngine(id));
     const response = await axiosApi.patch(

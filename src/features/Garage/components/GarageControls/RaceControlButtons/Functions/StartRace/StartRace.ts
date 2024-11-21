@@ -9,14 +9,19 @@ import startEngines from './startEngines.ts';
 const StartRace = async (
   dispatch: AppDispatch,
   cars: Car[],
-  winners: Winner[]
+  winners: Winner[],
+  driveController: AbortController,
+  raceStatus: boolean
 ) => {
   await startEngines(dispatch, cars);
 
   dispatch(startRace());
 
   const drivePromises: Promise<{ payload: DrivePayload }>[] = cars.map(
-    (car) => dispatch(driveCar(car.id)) as Promise<{ payload: DrivePayload }>
+    (car) =>
+      dispatch(
+        driveCar({ id: car.id, signal: driveController.signal })
+      ) as Promise<{ payload: DrivePayload }>
   );
 
   const startTime = Date.now();
@@ -25,7 +30,9 @@ const StartRace = async (
 
   const elapsedTime = Date.now() - startTime;
 
-  await handleWinner(dispatch, firstFinishedDrive, winners, elapsedTime);
+  if (raceStatus) {
+    await handleWinner(dispatch, firstFinishedDrive, winners, elapsedTime);
+  }
 
   await Promise.all(drivePromises);
 

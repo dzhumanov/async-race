@@ -19,6 +19,7 @@ function RaceControlButtons() {
   const winners = useSelector(selectWinners);
   const currentPage = useSelector(selectGaragePage);
   const raceStatus = useSelector(selectRaceStatus);
+  const driveController: AbortController = new AbortController();
 
   useEffect(() => {
     dispatch(fetchWinners());
@@ -32,7 +33,13 @@ function RaceControlButtons() {
           color="error"
           disabled={raceStatus}
           onClick={async () => {
-            await StartRace(dispatch, cars, winners);
+            await StartRace(
+              dispatch,
+              cars,
+              winners,
+              driveController,
+              raceStatus
+            );
           }}
           sx={{ width: '100%' }}
         >
@@ -44,7 +51,7 @@ function RaceControlButtons() {
           variant="outlined"
           color="error"
           onClick={async () => {
-            await resetRace(cars, dispatch, currentPage);
+            await resetRace(cars, dispatch, currentPage, driveController);
           }}
           sx={{ width: '100%' }}
         >

@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import { useSelector } from 'react-redux';
 import {
   closeModal,
@@ -18,8 +20,8 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: '#EE0000',
+  border: '2px solid #fff',
   boxShadow: 24,
   p: 4,
 };
@@ -49,10 +51,22 @@ export default function WinnerModal() {
             timeout: 500,
           },
         }}
-        sx={{ color: 'black' }}
+        sx={{ color: 'white', textAlign: 'center' }}
       >
         <Fade in={open}>
           <Box sx={style}>
+            <IconButton
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                color: 'white',
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+
             <Box component="div">
               <Typography
                 id="transition-modal-title"
