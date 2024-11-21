@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import GarageItem from './components/GarageItem/GarageItem.tsx';
 import {
   selectCars,
@@ -23,15 +23,24 @@ function Garage() {
     }
   }, [dispatch, allCars]);
 
-  useEffect(() => {
-    console.log(cars);
-    console.log(allCars);
-  }, [cars, allCars]);
+  // useEffect(() => {
+  //   console.log(cars);
+  //   console.log(allCars);
+  // }, [cars, allCars]);
 
   return (
     <Box sx={{ mt: 2 }}>
       <GarageControls />
-      <Box component="div" id="garageItemContainer" className={classes.garage}>
+      <Box
+        component="div"
+        id="garageItemContainer"
+        className={cars.length > 0 ? classes.garage : ''}
+      >
+        {cars.length === 0 && (
+          <Typography variant="h5" sx={{ textAlign: 'center' }}>
+            Garage is empty
+          </Typography>
+        )}
         {cars.map((car) => (
           <GarageItem
             key={car.id}

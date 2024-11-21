@@ -5,7 +5,7 @@ import GarageUpdate from './GarageUpdate/GarageUpdate.tsx';
 
 function GarageControls() {
   return (
-    <Grid container>
+    <Grid container alignItems="center">
       <Grid size={{ xs: 12, lg: 5 }}>
         <GarageForm />
       </Grid>

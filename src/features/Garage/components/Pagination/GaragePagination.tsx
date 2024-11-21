@@ -1,7 +1,9 @@
 import {
   selectCars,
+  selectDisplayedCars,
   selectGaragePage,
   setGaragePage,
+  setPrevPage,
 } from '@garage/garageSlice';
 import { fetchCars, fetchSomeCars } from '@garage/garageThunks';
 import { useAppDispatch } from '@hooks';
@@ -13,6 +15,7 @@ function GaragePagination() {
   const dispatch = useAppDispatch();
   const currentPage = useSelector(selectGaragePage);
   const cars = useSelector(selectCars);
+  const displayedCars = useSelector(selectDisplayedCars);
 
   useEffect(() => {
     dispatch(fetchCars());
@@ -21,6 +24,13 @@ function GaragePagination() {
   useEffect(() => {
     dispatch(fetchSomeCars({ page: currentPage }));
   }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    if (displayedCars.length === 0) {
+      dispatch(fetchCars());
+      dispatch(setPrevPage());
+    }
+  }, [dispatch, displayedCars.length]);
 
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     dispatch(setGaragePage(value));

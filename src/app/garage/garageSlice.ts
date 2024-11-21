@@ -32,6 +32,11 @@ export const garageSlice = createSlice({
     setGaragePage: (state, { payload: page }) => {
       state.currentPage = page;
     },
+    setPrevPage: (state) => {
+      if (state.currentPage > 1) {
+        state.currentPage -= 1;
+      }
+    },
     turnOnEngine: (state, { payload: id }) => {
       const car = state.displayedCars.find((c) => c.id === id);
       if (car) {
@@ -129,6 +134,7 @@ export const garageSlice = createSlice({
 export const garageReducer = garageSlice.reducer;
 export const {
   setGaragePage,
+  setPrevPage,
   turnOnEngine,
   turnOffEngine,
   resetCarPosition,

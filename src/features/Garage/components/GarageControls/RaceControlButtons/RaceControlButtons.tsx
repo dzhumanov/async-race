@@ -25,7 +25,7 @@ function RaceControlButtons() {
   }, [dispatch]);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ mb: 'auto' }}>
       <Grid size={6}>
         <Button
           variant="contained"

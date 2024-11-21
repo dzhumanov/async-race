@@ -70,6 +70,9 @@ function GarageFormUI({
                 '&.Mui-focused fieldset': {
                   borderColor: '#EE0000',
                 },
+                '& input': {
+                  color: 'white',
+                },
               },
               '& .MuiFormLabel-root': {
                 color: 'white',

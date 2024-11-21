@@ -1,8 +1,7 @@
 import { CarMutation } from 'types.ts';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { faker } from '@faker-js/faker';
 import { createCar, fetchCars, fetchSomeCars } from '@garage/garageThunks';
 import { AppDispatch } from 'app/store';
+import { faker } from '@faker-js/faker';
 
 const GenerateCars = async (dispatch: AppDispatch, page: number) => {
   for (let i = 0; i < 100; i += 1) {
