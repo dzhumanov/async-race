@@ -1,7 +1,7 @@
 import { Car, DrivePayload, Winner } from 'types';
 import { AppDispatch } from 'app/store.ts';
 import { driveCar } from '@garage/garageThunks.ts';
-import { startRace, stopRace } from '@garage/garageSlice.ts';
+import { stopRace } from '@garage/garageSlice.ts';
 import getFirstFinishedDrive from './getFirstFinishedDrive.ts';
 import handleWinner from './handleWinner.ts';
 import startEngines from './startEngines.ts';
@@ -10,12 +10,9 @@ const StartRace = async (
   dispatch: AppDispatch,
   cars: Car[],
   winners: Winner[],
-  driveController: AbortController,
-  raceStatus: boolean
+  driveController: AbortController
 ) => {
   await startEngines(dispatch, cars);
-
-  dispatch(startRace());
 
   const drivePromises: Promise<{ payload: DrivePayload }>[] = cars.map(
     (car) =>
@@ -30,13 +27,11 @@ const StartRace = async (
 
   const elapsedTime = Date.now() - startTime;
 
-  if (raceStatus) {
-    await handleWinner(dispatch, firstFinishedDrive, winners, elapsedTime);
-  }
-
-  await Promise.all(drivePromises);
+  await handleWinner(dispatch, firstFinishedDrive, winners, elapsedTime, true);
 
   dispatch(stopRace());
+
+  await Promise.all(drivePromises);
 };
 
 export default StartRace;

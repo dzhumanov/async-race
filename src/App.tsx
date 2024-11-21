@@ -17,7 +17,7 @@ function App() {
         <Box
           component="img"
           src={Break}
-          sx={{ width: '100%', height: '25px' }}
+          sx={{ width: '100%', height: '30px' }}
         />
         <Container maxWidth="lg">
           <Routes>

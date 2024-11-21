@@ -18,6 +18,15 @@ const Link = styled(NavLink)({
   },
 });
 
+const textStyles = {
+  textShadow: 'rgba(238,0,0,0.9) 0px 0px 22px',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    textShadow: 'rgba(255,255,255,0.9) 0px 0px 22px;',
+    color: '#ee0000',
+  },
+};
+
 function AppToolbar() {
   return (
     <AppBar position="sticky" sx={{ bgcolor: '#26252a' }}>
@@ -39,10 +48,14 @@ function AppToolbar() {
               }}
             >
               <Link to="/" sx={{ ml: 3 }}>
-                <Typography variant="h4">Garage</Typography>
+                <Typography variant="h4" sx={textStyles}>
+                  Garage
+                </Typography>
               </Link>
               <Link to="/winners" sx={{ ml: 3 }}>
-                <Typography variant="h4">Winners</Typography>
+                <Typography variant="h4" sx={textStyles}>
+                  Winners
+                </Typography>
               </Link>
             </Grid2>
             <Grid2 sx={{ flexGrow: 1 }}>

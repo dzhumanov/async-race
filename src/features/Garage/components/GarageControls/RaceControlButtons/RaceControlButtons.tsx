@@ -1,11 +1,12 @@
 import { Button, Grid2 as Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAppDispatch } from '@hooks';
 import {
   selectDisplayedCars,
   selectGaragePage,
   selectRaceStatus,
+  startRace,
 } from '@garage/garageSlice.ts';
 import { selectWinners } from 'app/winners/winnersSlice.ts';
 import { fetchWinners } from 'app/winners/winnersThunks.ts';
@@ -19,11 +20,26 @@ function RaceControlButtons() {
   const winners = useSelector(selectWinners);
   const currentPage = useSelector(selectGaragePage);
   const raceStatus = useSelector(selectRaceStatus);
-  const driveController: AbortController = new AbortController();
+
+  const driveController = useRef(new AbortController());
 
   useEffect(() => {
     dispatch(fetchWinners());
+
+    return () => {
+      driveController.current.abort();
+    };
   }, [dispatch]);
+
+  const handleStartRace = async () => {
+    driveController.current = new AbortController();
+    dispatch(startRace());
+    await StartRace(dispatch, cars, winners, driveController.current);
+  };
+
+  const handleResetRace = async () => {
+    await resetRace(cars, dispatch, currentPage, driveController.current);
+  };
 
   return (
     <Grid container spacing={2} sx={{ mb: 'auto' }}>
@@ -32,15 +48,7 @@ function RaceControlButtons() {
           variant="contained"
           color="error"
           disabled={raceStatus}
-          onClick={async () => {
-            await StartRace(
-              dispatch,
-              cars,
-              winners,
-              driveController,
-              raceStatus
-            );
-          }}
+          onClick={handleStartRace}
           sx={{ width: '100%' }}
         >
           Start
@@ -50,9 +58,7 @@ function RaceControlButtons() {
         <Button
           variant="outlined"
           color="error"
-          onClick={async () => {
-            await resetRace(cars, dispatch, currentPage, driveController);
-          }}
+          onClick={handleResetRace}
           sx={{ width: '100%' }}
         >
           Reset
