@@ -1,5 +1,6 @@
 function formatSeconds(ms: number): number {
-  return parseFloat((ms / 1000).toFixed(1));
+  const msToSec: number = 1000;
+  return parseFloat((ms / msToSec).toFixed(1));
 }
 
 export default formatSeconds;

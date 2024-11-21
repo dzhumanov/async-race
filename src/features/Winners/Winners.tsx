@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { selectDisplayedWinners } from '../../app/winners/winnersSlice.ts';
-import { useAppDispatch } from '../../app/hooks.ts';
-import { fetchWinners } from '../../app/winners/winnersThunks.ts';
+import { useAppDispatch } from '@hooks';
+import { selectDisplayedWinners } from '@winners/winnersSlice.ts';
+import { fetchWinners } from '@winners/winnersThunks.ts';
 import FirstTableRow from './components/FirstTableRow/FirstTableRow.tsx';
 import WinnersItem from './components/WinnersItem.tsx';
 import WinnersPagination from './components/Pagination/WinnersPagination.tsx';

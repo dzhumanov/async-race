@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 module.exports = {
   env: {
     browser: true,
@@ -24,6 +25,15 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'no-console': 'off',
     'import/no-cycle': 'off',
+    'no-magic-numbers': [
+      'error',
+      {
+        ignore: [0, 1, -1, 2],
+        ignoreArrayIndexes: true,
+        enforceConst: true,
+        detectObjects: false,
+      },
+    ],
     'import/extensions': [
       'error',
       'ignorePackages',

@@ -1,16 +1,13 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
+import { selectCars, selectDisplayedCars } from '@garage/garageSlice.ts';
+import { useAppDispatch } from '@hooks';
+import { fetchCars } from '@garage/garageThunks.ts';
 import GarageItem from './components/GarageItem/GarageItem.tsx';
-import {
-  selectCars,
-  selectDisplayedCars,
-} from '../../app/garage/garageSlice.ts';
-import { useAppDispatch } from '../../app/hooks.ts';
-import { fetchCars } from '../../app/garage/garageThunks.ts';
 import GarageControls from './components/GarageControls/GarageControls.tsx';
-import classes from './Garage.module.css';
 import GaragePagination from './components/Pagination/GaragePagination.tsx';
+import classes from './Garage.module.css';
 
 function Garage() {
   const cars = useSelector(selectDisplayedCars);
@@ -22,11 +19,6 @@ function Garage() {
       dispatch(fetchCars());
     }
   }, [dispatch, allCars]);
-
-  // useEffect(() => {
-  //   console.log(cars);
-  //   console.log(allCars);
-  // }, [cars, allCars]);
 
   return (
     <Box sx={{ mt: 2 }}>

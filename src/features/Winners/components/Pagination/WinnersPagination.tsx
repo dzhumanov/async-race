@@ -3,8 +3,8 @@ import {
   selectWinners,
   selectWinnersPage,
   setWinnersPage,
-} from 'app/winners/winnersSlice';
-import { fetchDisplayedWinners, fetchWinners } from 'app/winners/winnersThunks';
+} from '@winners/winnersSlice';
+import { fetchDisplayedWinners, fetchWinners } from '@winners/winnersThunks';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PaginationComponent from 'UI/Pagination/PaginationComponent';
@@ -13,6 +13,7 @@ function WinnersPagination() {
   const dispatch = useAppDispatch();
   const currentPage = useSelector(selectWinnersPage);
   const winners = useSelector(selectWinners);
+  const numberOfCars: number = 7;
 
   useEffect(() => {
     dispatch(fetchWinners());
@@ -27,7 +28,7 @@ function WinnersPagination() {
   };
 
   const countPages = () => {
-    return Math.round(winners.length / 7);
+    return Math.round(winners.length / numberOfCars);
   };
 
   return (

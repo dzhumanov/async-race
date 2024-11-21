@@ -16,6 +16,7 @@ function GaragePagination() {
   const currentPage = useSelector(selectGaragePage);
   const cars = useSelector(selectCars);
   const displayedCars = useSelector(selectDisplayedCars);
+  const numberOfCars: number = 7;
 
   useEffect(() => {
     dispatch(fetchCars());
@@ -37,7 +38,7 @@ function GaragePagination() {
   };
 
   const countPages = () => {
-    return Math.ceil(cars.length / 7);
+    return Math.ceil(cars.length / numberOfCars);
   };
 
   return (

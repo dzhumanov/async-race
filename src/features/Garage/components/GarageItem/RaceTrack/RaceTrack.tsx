@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import Popover from '@mui/material/Popover';
 import { Box, Typography } from '@mui/material';
+import Car from '@icons/Car/Car.tsx';
+import Warning from '@icons/Warning/Warning';
 import classes from './RaceTrack.module.css';
-import Car from '../../../../../UI/Icons/Car/Car.tsx';
-import Warning from '../../../../../UI/Icons/Warning/Warning.tsx';
 
 interface Props {
   status: boolean;
@@ -30,6 +30,9 @@ function RaceTrack({
   const [carWidth, setCarWidth] = useState<number>(0);
   const carRef = useRef<HTMLDivElement>(null);
 
+  const intervalTime: number = 10;
+  const carWidthError: number = 10;
+
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -46,7 +49,7 @@ function RaceTrack({
 
   useEffect(() => {
     if (carRef.current) {
-      setCarWidth(carRef.current!.offsetHeight + 10);
+      setCarWidth(carRef.current!.offsetHeight + carWidthError);
     }
   }, [carRef]);
 
@@ -68,7 +71,7 @@ function RaceTrack({
             setCurrentPosition(xPosition);
           }
         }
-      }, 10);
+      }, intervalTime);
 
       return () => clearInterval(interval);
     }

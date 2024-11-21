@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@hooks';
 import { Grid2 as Grid, Typography, Button } from '@mui/material';
-import { fetchDisplayedWinners } from 'app/winners/winnersThunks';
+import { fetchDisplayedWinners } from '@winners/winnersThunks';
 import { useState } from 'react';
 
 export default function FirstTableRow() {

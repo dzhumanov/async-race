@@ -26,8 +26,10 @@
     "baseUrl": "./src",
     "paths": {
       "@garage/*": ["app/garage/*"],
+      "@winners/*": ["app/winners/*"],
       "@hooks": ["app/hooks.ts"],
-      "@types": ["types.ts"]
+      "@types": ["types.ts"],
+      "@icons/*": ["UI/Icons/*"]
     }
   },
   "include": [".eslintrc.cjs", "src"]

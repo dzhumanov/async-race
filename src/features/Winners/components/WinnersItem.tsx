@@ -3,7 +3,7 @@ import { CarMutation, Winner } from 'types.ts';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '@hooks';
 import { fetchOneCar } from '@garage/garageThunks.ts';
-import Car from '../../../UI/Icons/Car/Car.tsx';
+import Car from '@icons/Car/Car';
 
 interface Props {
   winner: Winner;

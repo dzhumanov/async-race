@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import createInputChangeHandler from 'utils/InputChangeHandler/InputChangeHandler.ts';
 import { selectGaragePage } from '@garage/garageSlice.ts';
-import { CarMutation } from '../../../../../types.ts';
-import { useAppDispatch } from '../../../../../app/hooks.ts';
+import { CarMutation } from 'types';
+import { useAppDispatch } from '@hooks';
+import { createCar, fetchCars, fetchSomeCars } from '@garage/garageThunks.ts';
 import GarageFormUI from './UI/GarageFormUI.tsx';
-import {
-  createCar,
-  fetchCars,
-  fetchSomeCars,
-} from '../../../../../app/garage/garageThunks.ts';
 
 function GarageForm() {
   const [state, setState] = useState<CarMutation>({

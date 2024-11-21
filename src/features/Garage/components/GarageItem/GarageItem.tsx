@@ -36,31 +36,24 @@ function GarageItem({
   const dispatch = useAppDispatch();
   const [transitionDuration, setTransitionDuration] = useState<number>(0);
   const raceTrackRef = useRef<HTMLDivElement>(null);
-  let driveController: AbortController | null = null;
   const currentPage = useSelector(selectGaragePage);
   const trackWidth = raceTrackRef?.current?.clientWidth;
+  const distance: number = 500000;
+  const msToSec: number = 1000;
 
   useEffect(() => {
     if (velocity > 0) {
-      setTransitionDuration(500000 / velocity / 1000);
+      setTransitionDuration(distance / velocity / msToSec);
     }
   }, [velocity]);
 
   const turnOnCarEngine = async () => {
-    if (driveController) {
-      driveController.abort();
-    }
-    driveController = new AbortController();
     dispatch(resetCarPosition(id));
     await dispatch(switchEngine({ id, status: 'started' }));
-    await dispatch(driveCar(id));
+    await dispatch(driveCar({ id }));
   };
 
   const turnOffCarEngine = async () => {
-    if (driveController) {
-      driveController.abort();
-      driveController = null;
-    }
     dispatch(resetCarPosition(id));
     dispatch(turnOffEngine(id));
     await dispatch(switchEngine({ id, status: 'stopped' }));

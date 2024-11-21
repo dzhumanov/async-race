@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import {
@@ -117,7 +118,7 @@ export const switchEngine = createAsyncThunk<
 
 export const driveCar = createAsyncThunk<
   { id: string; success: boolean },
-  { id: string; signal: AbortSignal }
+  { id: string; signal?: AbortSignal }
 >('garage/drive', async ({ id, signal }, { dispatch }) => {
   try {
     dispatch(turnOnEngine(id));

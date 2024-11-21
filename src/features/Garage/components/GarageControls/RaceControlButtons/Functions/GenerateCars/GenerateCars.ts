@@ -4,7 +4,8 @@ import { AppDispatch } from 'app/store';
 import { faker } from '@faker-js/faker';
 
 const GenerateCars = async (dispatch: AppDispatch, page: number) => {
-  for (let i = 0; i < 100; i += 1) {
+  const carQuantity: number = 100;
+  for (let i = 0; i < carQuantity; i += 1) {
     const car: CarMutation = {
       name: `${faker.vehicle.manufacturer()} ${faker.vehicle.model()}`,
       color: faker.internet.color(),
